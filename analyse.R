@@ -1,23 +1,20 @@
+
 library("ggplot2")
 library("tidyverse")
 library("tidyr")
 library("dplyr")
 
 
-#12, 19 ausreißer nicht deutscher
-#https://stadt.muenchen.de/dam/jcr:fcc81666-f6ef-4c83-84b3-8714c6c38f6f/mb220302_r.pdf
-#mit import dataset Klick in R geholt
-#view(bevoelkerungsdichte)
-#b<- bevoelkerungsdichte
-#m <- mobilitaetsziffer
+#hier wurden viele Korrelationen und viele plots betrachtet. 
+
+
+
+
+Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
+Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
+
 m <-Mobilitaet #nache einlesung
 b <-Bevoelkerungsdichte #nache einlesung
-#b <-indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25
-#m <- indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25
-
-
-
-
 
 
 
@@ -31,6 +28,9 @@ ggplot(b1, aes(x = Jahr, y = Basiswert.1)) + geom_point() + geom_line() +
   labs(y = "Einwohnerzahl", title = "Stadt München")
 #Geborene 2025: 15 399 https://de.statista.com/statistik/daten/studie/1228950/umfrage/geburten-todesfaelle-muenchen/
 #Gestorbene 2025: 12 539
+#12, 19 ausreißer nicht deutscher
+#https://stadt.muenchen.de/dam/jcr:fcc81666-f6ef-4c83-84b3-8714c6c38f6f/mb220302_r.pdf
+
 
 b %>%
   group_by(Raumbezug) %>%
@@ -457,23 +457,9 @@ ggplot(mplot0902, aes(x = Jahr, y = Basiswert.1 + Basiswert.2, color = Ausprägu
 ggplot(mplot0902, aes(x = Jahr, y = Basiswert.3 + Basiswert.4, color = Ausprägung)) + geom_point()+ geom_line() + facet_wrap(~Raumbezug)
 
 
-b009 <- bnew%>%
-  filter(sn == 22 | sn == 17 | sn == 26)
-
-ggplot(b009, aes(x = Jahr, y = Indikatorwert, color = Ausprägung)) + geom_point()+ geom_line() + facet_wrap(~Raumbezug, scales = "free")
 
 
-
-
-
-
-
-
-
-
-
-
-mnew <- mnew %>%
+mnew <- mnew %>% #indexbildung von Jahr 2000
   group_by(Raumbezug) %>%
   group_by(Ausprägung)%>%
   mutate(indexb1 = 100 * Basiswert.1 / Basiswert.1[Jahr == 2000],
@@ -537,7 +523,7 @@ pz2 <- zusammen%>%
   filter(Jahr == 2024)
 ggplot(pz2, aes(x = bi, y = Indikatorwert, color = Raumbezug)) + geom_point() 
 
-zusammen <- zusammen %>%
+zusammen <- zusammen %>% # umzüge durch quadratkilometer
   mutate(bqm1 = Basiswert.1 / b2,
          bqm2 = Basiswert.2 / b2,
          bqm3 = Basiswert.3.x / b2,
