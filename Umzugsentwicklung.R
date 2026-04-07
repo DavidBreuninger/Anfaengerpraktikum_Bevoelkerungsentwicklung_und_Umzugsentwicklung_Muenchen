@@ -24,23 +24,6 @@ umzug_Bezirksgruppen_long <- umzug_Bezirksgruppen %>%
                names_to = "Umzug",
                values_to = "Anzahl")
 
-# stacked barplot absolute values
-ggplot(umzug_stadt_long, aes(x = Jahr, y = Anzahl, 
-                             fill = Umzug)) + 
-  geom_bar(stat = "identity",  color = "white") +
-  facet_wrap(~ Anfangsbezirk, scales = "free_y") +
-  theme_bw() +
-  labs(y = "Anzahl Umzüge", fill = "Umzug") +
-  scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "innerstaedtisch" = "#8491B4"))
-
-+ggplot(umzug_Bezirksgruppen_long, aes(x = Jahr, y = Anzahl, 
-                                      fill = factor(Umzug, levels = c("außerstaedtisch", "nicht benachbarte Bezirke", "Nachbarbezirke", "selber Bezirk")))) + 
-  geom_bar(stat = "identity",  color = "white") +
-  facet_wrap(~ Anfangsbezirk, scales = "free_y") +
-  theme_bw() +
-  labs(y = "Anzahl Umzüge", fill = "Umzug") + 
-  scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "nicht benachbarte Bezirke" = "#009292", "Nachbarbezirke" = "#DB6D00", "selber Bezirk" = "#B66DFF"))
-
 # stacked percentage barplot 
 plot_Umzug_Stadt <- ggplot(umzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = Umzug)) + 
   geom_bar(position = "fill", stat = "identity",  color = "white") +
@@ -90,23 +73,6 @@ plot_stadt_prozent <- ggplot(Mobilitaet_muenchen_weg,
   theme_bw() +
   scale_color_manual(values = c("#F0D852", "#8491B4"))
 
-# bar plot abs
-ggplot(Mobilitaet_muenchen_weg,
-       aes(x = Jahr, y = Anzahl_Wegzug, fill = Wegzug)) +
-  geom_bar(position =  "stack", stat = "identity", color = "black") + 
-  scale_fill_manual(values = c("außerstaedtisch" =  "#F0D852", "innerstaedtisch" = "#8491B4")) +
-  scale_y_continuous(labels = label_number(scale = 1e-3)) +
-  labs(y = "Anzahl in Tsd.", title = "Umzüge München") + 
-  theme_bw() 
-
-# bar blot percentage
-
-ggplot(Mobilitaet_muenchen_weg,
-       aes(x = Jahr, y = Anzahl_Wegzug, fill = Wegzug)) +
-  geom_bar(position = "fill", stat = "identity", color = "white") + 
-  scale_fill_manual(values = c("außerstaedtisch" =  "#F0D852", "innerstaedtisch" = "#8491B4")) +
-  labs(y = "Anteil", title = "Umzüge München") + 
-  theme_bw() 
 
 Mobilitaet_allg <- Mobilitaet_muenchen_weg %>%
   group_by(Jahr, mittlere_Bevölkerung) %>%
@@ -120,5 +86,6 @@ plot_muenchen_prozent <- ggplot(Mobilitaet_allg, aes(x = Jahr,  y = Prozent)) +
   theme_bw()
 
 # save plots
+
 ggsave("Results/plot_muenchen_prozent.jpg", plot = plot_muenchen_prozent, width = 12, height = 8)
 ggsave("Results/plot_stadt_prozent.jpg", plot = plot_stadt_prozent, width = 12, height = 8)
