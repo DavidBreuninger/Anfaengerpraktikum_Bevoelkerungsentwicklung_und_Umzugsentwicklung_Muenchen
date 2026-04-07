@@ -6,49 +6,49 @@ source("functions.R")
 
 # read 
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
-umzug_stadt <- read.csv("Clean_Data/umzug_innen_außen.csv")
-umzug_Bezirksgruppen <-  read.csv("Clean_Data/umzug_Bezirksgruppen.csv")
+wegzug_stadt <- read.csv("Clean_Data/umzug_innen_außen.csv")
+wegzug_Bezirksgruppen <-  read.csv("Clean_Data/umzug_Bezirksgruppen.csv")
 
 # pivot longer for plots
-umzug_stadt_long <- umzug_stadt %>%
+wegzug_stadt_long <- wegzug_stadt %>%
   select(!insgesamt) %>%
   pivot_longer(cols = c("innerstaedtisch", "außerstaedtisch"),
-               names_to = "Umzug",
+               names_to = "Wegzug",
                values_to = "Anzahl")
 
-umzug_Bezirksgruppen_long <- umzug_Bezirksgruppen %>%
+wegzug_Bezirksgruppen_long <- wegzug_Bezirksgruppen %>%
   select(!insgesamt) %>%
   rename("selber Bezirk" = selber_Bezirk) %>%
   rename("nicht benachbarte Bezirke" = Restbezirke) %>%
   pivot_longer(cols = c("selber Bezirk", "Nachbarbezirke", "nicht benachbarte Bezirke", "außerstaedtisch"),
-               names_to = "Umzug",
+               names_to = "Wegzug",
                values_to = "Anzahl")
 
 # stacked percentage barplot 
-plot_Umzug_Stadt <- ggplot(umzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = Umzug)) + 
+plot_wegzug_Stadt <- ggplot(wegzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = Wegzug)) + 
   geom_bar(position = "fill", stat = "identity",  color = "white") +
   facet_wrap(~ Anfangsbezirk) +
   theme_bw() + 
-  labs(fill = "Umzug", y = "Anteil", title = "Umzüge je nach Bezirk")  +
+  labs(fill = "Wegzug", y = "Anteil von Wegzügen")  +
   scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "innerstaedtisch" = "#8491B4")) + 
   theme(axis.text.x = element_text(size = 7))
 
-plot_Umzug_Bezirke <- ggplot(umzug_Bezirksgruppen_long, 
+plot_wegzug_Bezirke <- ggplot(wegzug_Bezirksgruppen_long, 
                              aes(x = Jahr, y = Anzahl, 
-                                 fill = factor(Umzug, levels = c("außerstaedtisch", "nicht benachbarte Bezirke", "Nachbarbezirke", "selber Bezirk")))) + 
+                                 fill = factor(Wegzug, levels = c("außerstaedtisch", "nicht benachbarte Bezirke", "Nachbarbezirke", "selber Bezirk")))) + 
   geom_bar(position = "fill", stat = "identity",  color = "white") +
   facet_wrap(~ Anfangsbezirk) +
   theme_bw() + 
-  labs(fill = "Umzug", y = "Anteil", title = "Umzüge je nach Bezirk") +
+  labs(fill = "Wegzug", y = "Anteil von Wegzügen") +
   scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "nicht benachbarte Bezirke" = "#009292", "Nachbarbezirke" = "#DB6D00", "selber Bezirk" = "#B66DFF")) +
   theme(axis.text.x = element_text(size = 7))
 
 # save plots
-ggsave("Results/plot_Umzug_Stadt.jpg", plot = plot_Umzug_Stadt, width = 12, height = 8)
-ggsave("Results/plot_Umzug_Bezirke.jpg", plot = plot_Umzug_Bezirke, width = 12, height = 8)
+ggsave("Results/plot_wegzug_Stadt.jpg", plot = plot_wegzug_Stadt, width = 12, height = 8)
+ggsave("Results/plot_wegzug_Bezirke.jpg", plot = plot_wegzug_Bezirke, width = 12, height = 8)
 
 # Entwicklung Umzüge Münchens inner-/außerstaedtisch
-# pivot_to_lonh for plotting
+# pivot_to_long for plotting
 
 Mobilitaet_long <- Mobilitaet_thin %>%
   pivot_longer(cols = c("innerstädtisch.Weggezogene..", "außerstädtisch.Weggezogene."), 
@@ -65,13 +65,14 @@ Mobilitaet_muenchen_weg <- Mobilitaet_long %>%
     Wegzug == "außerstädtisch.Weggezogene." ~ "außerstaedtisch")) %>% 
   mutate(Prozent = Anzahl_Wegzug / mittlere_Bevölkerung * 100)
 
-# lineplot for Umzug Muenchen
+# lineplot for Wegzug Muenchen
 plot_stadt_prozent <- ggplot(Mobilitaet_muenchen_weg,
        aes(x = Jahr, y = Prozent, color = Wegzug)) +
   geom_point() + geom_line() +
-  labs(y = "Anteil in %", title = "Anteil Umzüge an mittlerer Bevölkerungzahl", color = "Umzug") + 
+  labs(y = "Anteil in %", title = "Anteil Umzüge an mittlerer Bevölkerungzahl", color = "Wegzug") + 
   theme_bw() +
-  scale_color_manual(values = c("#F0D852", "#8491B4"))
+  scale_color_manual(values = c("#F0D852", "#8491B4")) +
+  theme(legend.text = element_text(size = 10))
 
 
 Mobilitaet_allg <- Mobilitaet_muenchen_weg %>%
