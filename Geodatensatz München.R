@@ -106,8 +106,7 @@ ggplot(plotdatapi) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Zuzugsrate insgesamt",
-       fill = "Zuzugsrate") +
+  labs(fill = "Zuzugsrate") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -224,8 +223,7 @@ ggplot(plotdataNettorate) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Netto-Migrationsrate nach Stadtbezirk",
-       fill = "Netto-Migrationsrate") +
+  labs(fill = "Netto-Migrationsrate") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -250,7 +248,7 @@ ggplot(plotdataNettoratend) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Netto-Migrationsrate von Nicht-Deutschen",
+  labs(title = "Nicht-Deutsche Staatsbürger",
        fill = "Rate") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
@@ -271,12 +269,12 @@ ggplot(plotdataNettorated) +
     mid = "white",
     high = "blue",
     midpoint = 0,
-    limits = c(-4, 4),
-    breaks = c(-4, -2, 0, 2, 4)
+    limits = c(-6, 6),
+    breaks = c(-6, -3, 0, 3, 6)
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Netto-Migrationsrate von Deutschen",
+  labs(title = "Deutsche Staatsbürger",
        fill = "Rate") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
