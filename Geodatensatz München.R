@@ -172,8 +172,6 @@ plotdatabevölkerung <- bezirke %>%
 plotdataBevölkerungsentwicklung <- plotdatabevölkerung %>%
   filter(Jahr == 2024)
 
-maxb <- max(abs(plotdataBevölkerungsentwicklung$Basiswert.1), na.rm = TRUE)
-minb <- min(abs(plotdataBevölkerungsentwicklung$Basiswert.1), na.rm = TRUE)
 ggplot(plotdataBevölkerungsentwicklung) +
   geom_sf(aes(fill = Basiswert.1)) +
   scale_fill_viridis_c(
@@ -192,10 +190,6 @@ plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
   mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
   filter(Jahr == 2024, Ausprägung == "insgesamt")
 
-maxd <- max(abs(plotdataBevölkerungsdichte$Bevölkerungsdichte), na.rm = TRUE) %>% round(digits = 2)
-mind <- min(abs(plotdataBevölkerungsdichte$Bevölkerungsdichte), na.rm = TRUE) %>%
-  round(digits = 2)
-
 ggplot(plotdataBevölkerungsdichte) +
   geom_sf(aes(fill = Bevölkerungsdichte)) +
   scale_fill_viridis_c(
@@ -210,6 +204,10 @@ ggplot(plotdataBevölkerungsdichte) +
         axis.title = element_blank())
 
 #Netto-Migrationsraten
+plotdataNetto <- plotdata %>%
+  filter(Ausprägung == "insgesamt") %>%
+  mutate(netto = (Basiswert.1 + Basiswert.2) - (Basiswert.3 + Basiswert.4))
+
 #Netto-Migrationsrate insgesamt
 plotdataNettorate <- plotdataNetto %>%
   mutate(netto_rate = (Zuzügegesamt - Wegzügegesamt) / Basiswert.5 * 100)
