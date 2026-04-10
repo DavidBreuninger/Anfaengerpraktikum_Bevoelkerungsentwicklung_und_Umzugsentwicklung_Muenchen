@@ -19,7 +19,7 @@ remove_Auspraegung <- function(df) {
   return(df)
 }
 
-# vectors of distinct Raumbezug, district numbers removed
+# vectors of distinct district names from column Raumbezug, district numbers removed
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 Bezirke <- Mobilitaet_thin %>%
   select(Raumbezug) %>% 
@@ -52,11 +52,13 @@ colnames_to_ID <- function(df) {
 }
 
 #FUNC4: add_umzug_info, adds columns Jahr (passed as Variable year), 
-#       innerstaedtisch, außerstaedtisch, insgesamt und Bezirke 
+#       innerstaedtisch (= innerstaedtische Wegzüge), 
+#       außerstaedtisch (= außerstaedtische Wegzüge), insgesamt (sum of column innerstaedtisch and außerstaedtisch) 
+#       and Bezirke
 add_umzug_info <- function(df, year) {
   df[2:26] <- as.data.frame(sapply(df[2:26], as.numeric)) # turn district columns into numeric
   
-  außerstadt <- wegzug_außerstadt %>%
+  außerstadt <- wegzug_außerstadt %>%   #vector of "außerstaedtischen Wegzügen" for each district depending on Variable year
     filter(Jahr == year) %>%
     mutate(Anfangsbezirk = Bezirke) %>%
     select(!Raumbezug)
@@ -78,7 +80,7 @@ get_district_sum <- function(df, origin, moved_to) {
   return(res)
 }
 #FUNC6: sum_im_bezirk, creates column "selber Bezirk", which holds the number of people, 
-#       that stayed in the sam district after moving
+#       that stayed in the same district after moving
 sum_im_bezirk <- function(df) {
   df <- df %>%
     mutate(selber_Bezirk = case_when(
