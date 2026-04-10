@@ -73,40 +73,42 @@ plotdata <- plotdata%>%
   mutate(wer = 100 *((Basiswert.1 + Basiswert.2) / (Basiswert.1[Ausprägung == "insgesamt"][1] + Basiswert.2[Ausprägung == "insgesamt"][1])),
                                        zur = 100* ((Basiswert.3 + Basiswert.4) / (Basiswert.3[Ausprägung == "insgesamt"][1] + Basiswert.4[Ausprägung == "insgesamt"][1])))
 #Zuzugsrate Nicht-Deutsche Staatsbürger
- plotdata%>%
+gn1 <- plotdata%>%
   filter(Ausprägung == "nichtdeutsch")%>%
 ggplot() +
   geom_sf(aes(fill = zur)) +
   scale_fill_viridis_c(
     limits = c(0, 100),
-    values = scales::rescale(c(0, 25, 30, 35, 40,  50, 55, 60, 65, 70, 75, 100)),
+    values = scales::rescale(c(0, 25,  35, 40, 45, 50, 55, 60, 65, 75, 100)),
     breaks = c(0, 25, 50, 75, 100)
   ) +
-  facet_wrap(~ Jahr) +
+  facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
-  labs(title = "Zuzugsrate nichtdeutscher Staatsbürgern",
+  labs(
        fill = "Protzent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
+ gn1
  
  
- plotdata%>%
+gn2 <- plotdata%>%
    filter(Ausprägung == "nichtdeutsch")%>%
    ggplot() +
-   geom_sf(aes(fill = zur)) +
+   geom_sf(aes(fill = wer)) +
    scale_fill_viridis_c(
      limits = c(0, 100),
      values = scales::rescale(c(0, 25,  40, 45, 50, 55, 60,  75, 100)),
      breaks = c(0, 25, 50, 75, 100)
    ) +
-   facet_wrap(~ Jahr) +
+   facet_wrap(~ Jahr, nrow = 4) +
    theme_minimal() +
    labs(
         fill = "Protzent") +
    theme(axis.text = element_blank(),
          axis.ticks = element_blank(),
          axis.title = element_blank())
+gn2
  
  
  
@@ -143,7 +145,7 @@ g2 <-plotdata%>%
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(
-       fill = "Protzent") +
+       fill = "Protzent") 
 
 plotdatapnd <- plotdata %>%
   group_by(Raumbezug, Jahr) %>%
@@ -184,7 +186,7 @@ g3<-plotdata%>%
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(
-       fill = "Protzent") +
+       fill = "Protzent") 
 
 #Wegzugsrate von Nicht-Deutschen Staatsbürgern
 ggplot(plotdatapnd) +
@@ -229,21 +231,57 @@ g4 <-plotdata%>%
 
 #Zuzugsrate insgesamt
 
-ggplot(plotdatapi) +
+gn3 <- ggplot(plotdatapi) +
   geom_sf(aes(fill = Zuzugsrate)) +
   scale_fill_viridis_c(
     limits = c(10, 40),
 
-    values = scales::rescale(c(10,  12.5, 15, 17.5, 20, 30, 40)),
+    values = scales::rescale(c(10,  12.5, 15, 17.5, 20, 25, 40)),
     breaks = c( 10,  20,  30,  40)
   ) +
-  facet_wrap(~ Jahr) +
+  facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
   labs(title = "Zuzugsrate",
        fill = "Protzent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) 
+gn3
+
+gn4 <- ggplot(plotdatapi) +
+  geom_sf(aes(fill = Wegzugsrate)) +
+  scale_fill_viridis_c(
+    limits = c(10, 40),
+    
+    values = scales::rescale(c(10,  12.5, 15, 17.5, 20, 25, 40)),
+    breaks = c( 10,  20,  30,  40)
+  ) +
+  facet_wrap(~ Jahr, nrow =4) +
+  theme_minimal() +
+  labs(title = "Wegzugsrate",
+       fill = "Protzent") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank()) 
+gn4
+
+gn4t <- ggplot(plotdatapi) +
+  geom_sf(aes(fill = Wegzugsrate)) +
+  scale_fill_viridis_c(
+    limits = c(10, 40),
+    
+    values = scales::rescale(c(10,  12.5, 15, 17.5, 20, 25, 40)),
+    breaks = c( 10,  20,  30,  40)
+  ) +
+  facet_wrap(~ Jahr, nrow =3) +
+  theme_minimal() +
+  labs(title = "Wegzugsrate",
+       fill = "Protzent") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank()) 
+gn4t
+
 
 
 g5 <- ggplot(plotdatapi) +
@@ -261,7 +299,7 @@ g5 <- ggplot(plotdatapi) +
           breaks = c( 10,  20,  30,  40)
         )
 
-
+g5
 
 #Wegzugsrate insgesamt
 g6 <-ggplot(plotdatapi) +
@@ -287,17 +325,6 @@ g6 <-ggplot(plotdatapi) +
 
 #Plots mit Bevölkerungsdatensatz
 #Bevölkerungsdatensatz für join vorbereiten
-Bevölkerung_clean <- Bevoelkerungsdichte %>%
-
-    values = scales::rescale(c(10, 20, 30, 40)),
-    breaks = c(10, 15, 20, 25, 30, 35, 40)
-  ) +
-  facet_wrap(~ Jahr) +
-  theme_minimal() +
-  labs(fill = "Zuzugsrate") +
-  theme(axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank())
 
 #Wegzugsrate insgesamt
 ggplot(plotdatapi) +
@@ -398,15 +425,6 @@ g8 <-ggplot(plotdataBevölkerungsdichte) +
   labs(title = "Bevölkerungsdichte 2024",
        fill = "Dichte pro km²") + 
 
-ggplot(plotdataBevölkerungsdichte) +
-  geom_sf(aes(fill = Bevölkerungsdichte)) +
-  scale_fill_viridis_c(
-    limits = c(0, 16000),
-    breaks = c(0, 4000, 8000, 12000, 16000)
-  ) +
-  theme_minimal() +
-  labs(title = "Bevölkerungsdichte",
-       fill = "Dichte pro km²") +
 
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
@@ -438,9 +456,6 @@ plotdataNettorate <- plotdataNetto %>%
 
 
 g9<-ggplot(plotdataNettorate) +
-
-ggplot(plotdataNettorate) +
-
   geom_sf(aes(fill = netto_rate)) +
   scale_fill_gradient2(
     low = "purple",
@@ -450,17 +465,14 @@ ggplot(plotdataNettorate) +
     limits = c(-7, 7),
     breaks = c(-7, -4, -2, 0, 2, 4, 7)
   ) +
-  facet_wrap(~ Jahr) +
+  facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
-
   labs(title = "Nettoumzugsrate",
        fill = "Protzent") +
-
-  labs(fill = "Netto-Migrationsrate") +
-
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
+g9
 
 #Netto Migrationsrate für nicht-deutsche
 plotdataNettoratend <- plotdata %>%
@@ -524,6 +536,13 @@ g11<-ggplot(plotdataNettorated) +
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
+ggsave("Results/gn1.jpg", plot = gn1,width = 4, height = 3)
+ggsave("Results/gn2.jpg", plot = gn2,width = 4, height = 3)
+ggsave("Results/gn3.jpg", plot = gn3,width = 4, height = 3)
+ggsave("Results/gn4.jpg", plot = gn4,width = 4, height = 3)
+ggsave("Results/gn4t.jpg", plot = gn4t,width = 4, height = 3)
+
+
 ggsave("Results/g1.jpg", plot = g1,width = 3, height = 3)
 ggsave("Results/g2.jpg", plot = g2,width = 3, height = 3)
 ggsave("Results/g3.jpg", plot = g3,width = 3, height = 3)
@@ -535,4 +554,4 @@ ggsave("Results/g5.jpg", plot = g5,width = 3, height = 3)
 ggsave("Results/g6.jpg", plot = g6,width = 3, height = 3)
 ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
 ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
-ggsave("Results/g9.jpg", plot = g9,width = 3, height = 3)
+ggsave("Results/g9.jpg", plot = g9,width = 4, height = 3)
