@@ -85,7 +85,7 @@ ggplot() +
   facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
   labs(
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -104,7 +104,7 @@ gn2 <- plotdata%>%
    facet_wrap(~ Jahr, nrow = 4) +
    theme_minimal() +
    labs(
-        fill = "Protzent") +
+        fill = "Prozent") +
    theme(axis.text = element_blank(),
          axis.ticks = element_blank(),
          axis.title = element_blank())
@@ -119,7 +119,7 @@ g1 <- plotdata%>%
    facet_wrap(~ Jahr) +
    theme_minimal() +
    labs(
-        fill = "Protzent") +
+        fill = "Prozent") +
    theme(axis.text = element_blank(),
          axis.ticks = element_blank(),
          axis.title = element_blank()) + scale_fill_gradient(
@@ -145,7 +145,7 @@ g2 <-plotdata%>%
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(
-       fill = "Protzent") 
+       fill = "Prozent") 
 
 plotdatapnd <- plotdata %>%
   group_by(Raumbezug, Jahr) %>%
@@ -186,7 +186,7 @@ g3<-plotdata%>%
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(
-       fill = "Protzent") 
+       fill = "Prozent") 
 
 #Wegzugsrate von Nicht-Deutschen Staatsbürgern
 ggplot(plotdatapnd) +
@@ -219,7 +219,7 @@ g4 <-plotdata%>%
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -242,7 +242,7 @@ gn3 <- ggplot(plotdatapi) +
   facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
   labs(title = "Zuzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) 
@@ -259,7 +259,7 @@ gn4 <- ggplot(plotdatapi) +
   facet_wrap(~ Jahr, nrow =4) +
   theme_minimal() +
   labs(title = "Wegzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) 
@@ -276,7 +276,7 @@ gn4t <- ggplot(plotdatapi) +
   facet_wrap(~ Jahr, nrow =3) +
   theme_minimal() +
   labs(title = "Wegzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) 
@@ -289,7 +289,7 @@ g5 <- ggplot(plotdatapi) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(title = "Zuzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) + scale_fill_gradient(
@@ -307,7 +307,7 @@ g6 <-ggplot(plotdatapi) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(title = "Wegzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank()) + scale_fill_gradient(
@@ -462,13 +462,13 @@ g9<-ggplot(plotdataNettorate) +
     mid = "white",
     high = "yellow",
     midpoint = 0,
-    limits = c(-7, 7),
-    breaks = c(-7, -4, -2, 0, 2, 4, 7)
+    limits = c(-8, 8),
+    breaks = c(-8, -6, -4, -2, 0, 2, 4, 6, 8)
   ) +
   facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
   labs(title = "Nettoumzugsrate",
-       fill = "Protzent") +
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -494,13 +494,8 @@ g10<- ggplot(plotdataNettoratend) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-
   labs(
-       fill = "Protzent") +
-
-  labs(title = "Nicht-Deutsche Staatsbürger",
-       fill = "Rate") +
-
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
@@ -527,10 +522,7 @@ g11<-ggplot(plotdataNettorated) +
   theme_minimal() +
 
   labs(
-       fill = "Protzent") +
-
-  labs(title = "Deutsche Staatsbürger",
-       fill = "Rate") +
+       fill = "Prozent") +
 
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
