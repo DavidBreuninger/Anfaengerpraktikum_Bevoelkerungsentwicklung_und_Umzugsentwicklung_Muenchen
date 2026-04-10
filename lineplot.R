@@ -125,8 +125,8 @@ bnew_index$Raumbezug <- factor(bnew_index$Raumbezug , levels = order1$Raumbezug 
 
 p2 <- bnew_index %>% filter(Raumbezug != "Stadt München") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
-  geom_point(color = "#0072B2",size=1) +
-  geom_line(color = "#0072B2")+ facet_wrap(~ Raumbezug) + 
+  geom_point(color = "black",size=1) +
+  geom_line(color = "black")+ facet_wrap(~ Raumbezug) + 
   labs(y = "Bevölkerungsindex (2002=100)",
        title = "Prozentuale Bevölkerungsentwicklung nach Stadtbezirken")+
   theme_bw()+
@@ -150,8 +150,8 @@ bnew_index2 <- bnew %>%
 
 p2b <-bnew_index2 %>% filter(Raumbezug == "Stadt München") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
-  geom_point(color = "#0072B2",size=1) +
-  geom_line(color = "#0072B2")+  
+  geom_point(color = "black",size=1) +
+  geom_line(color = "black")+  
   labs(y = "Bevölkerungsindex (2002=100)",
        title = "Prozentuale Bevölkerungsentwicklung in der Stadt München")+
   theme_bw() + 
@@ -241,7 +241,7 @@ theme_bw()+theme(plot.title = element_text(hjust = 0.5))
 p4
 
  #save plot
-ggsave("Results/p_Nettoumzug.jpg", plot = p5,width = 6, height = 4)
+ggsave("Results/p_Nettoumzug.jpg", plot = p4,width = 6, height = 4)
 
 
 #This plot shows us the trend of  population inflow into München from 2000 to 2024.
