@@ -86,8 +86,7 @@ mnew <- mnew%>%
 #creat plots
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
- 
-#choose the data only from München
+ #choose the data only from München
 plot1 <- mnew%>%
   filter(Raumbezug == "Stadt München")
 
@@ -99,7 +98,7 @@ p1<-ggplot(plot1, aes(x = Jahr, y = Basiswert.5, color = Ausprägung)) + geom_po
                                  nichtdeutsch = "#0072B2",
                                  insgesamt = "black"))+
   scale_y_continuous(labels = label_number(scale = 1e-6))+ #Population in millions
-  theme_bw() + theme(plot.title = element_text(hjust = 0.5))
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) #Center the title
 p1
 
  #save plot
@@ -108,7 +107,6 @@ ggsave("Results/p_Einwohnerzahl.jpg", plot = p1,width = 10, height = 6)
 
 #This plot shows us the population growth rate of each district compared to 2002.
 #Make the population into index (2002=100) and then sort the districts by the latest year.
- 
  #Calculate the index : Current value / 2002 value × 100
 bnew_index <- bnew %>%
   group_by(Raumbezug,Ausprägung) %>%
@@ -125,15 +123,16 @@ bnew_index$Raumbezug <- factor(bnew_index$Raumbezug , levels = order1$Raumbezug 
 
 p2 <- bnew_index %>% filter(Raumbezug != "Stadt München") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
-  geom_point(color = "#0072B2",size=1) +
-  geom_line(color = "#0072B2")+ facet_wrap(~ Raumbezug) + 
+  geom_point(color = "black",size=1) +
+  geom_line(color = "black")+ facet_wrap(~ Raumbezug) + 
   labs(y = "Bevölkerungsindex (2002=100)",
        title = "Prozentuale Bevölkerungsentwicklung nach Stadtbezirken")+
-  theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        strip.text = element_text(size = 7,face="bold"),
-        panel.spacing.x = unit(1.2, "lines"))
+  theme_bw()+ scale_x_continuous(breaks = seq(2000, 2025, 5),
+                                  limits = c(2000, NA))+ #Set the x-axis from 2000 to 2005
+  theme(plot.title = element_text(hjust = 0.5), #Center the title
+        axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
+        strip.text = element_text(size = 7,face="bold"), #bolded facet title
+        panel.spacing.x = unit(1.2, "lines")) #Controlling the horizontal spacing of facet Grafik
 p2
 
  #save plot
@@ -141,7 +140,6 @@ ggsave("Results/p_Prozentuale_Bevölkerungsentwicklung.jpg", plot = p2,width = 1
 
 
 #This plot shows us the population growth rate of München compared to 2002.
- 
  #Calculate the index : Current value / 2002 value × 100
 bnew_index2 <- bnew %>%
   group_by(Raumbezug,Ausprägung) %>%
@@ -150,15 +148,14 @@ bnew_index2 <- bnew %>%
 
 p2b <-bnew_index2 %>% filter(Raumbezug == "Stadt München") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
-  geom_point(color = "#0072B2",size=1) +
-  geom_line(color = "#0072B2")+  
+  geom_point(color = "black",size=1) +
+  geom_line(color = "black")+  
   labs(y = "Bevölkerungsindex (2002=100)",
        title = "Prozentuale Bevölkerungsentwicklung in der Stadt München")+
-  theme_bw() + 
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        strip.text = element_text(size = 7,face="bold"),
-        panel.spacing.x = unit(1.2, "lines"))
+  theme_bw() + scale_x_continuous(breaks = seq(2000, 2025, 5),
+                                  limits = c(2000, NA))+ #Set the x-axis from 2000 to 2005
+  theme(plot.title = element_text(hjust = 0.5), #Center the title
+        axis.text.x = element_text(angle = 45, hjust = 1)) #Rotate x-axis by 45°
 
 p2b
 
@@ -167,7 +164,6 @@ ggsave("Results/p_Prozentuale_Bevölkerungsentwicklung_München.jpg", plot = p2b
 
 
 #This plot shows us the population percentages of German and non-German citizens in different district from 2000 to 2024.
-
  #Calculate the proportion of German and non-German citizens in the total population for each district and each year.
  #German + non-German = 1 in each year
 mnew <- mnew %>%
@@ -185,10 +181,10 @@ p3<-mnew%>%
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2"))+
   scale_y_continuous(limits = c(0,1))+theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        strip.text = element_text(size = 7,face="bold"),
-        panel.spacing.x = unit(1.2, "lines"))
+  theme(plot.title = element_text(hjust = 0.5), #Center the title
+        axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
+        strip.text = element_text(size = 7,face="bold"), #bolded facet title
+        panel.spacing.x = unit(1.2, "lines")) #Controlling the horizontal spacing of facet Grafik
 
 p3
 
@@ -208,10 +204,10 @@ p3b<-mnew%>%
                                 nichtdeutsch = "#0072B2"))+
   scale_y_continuous(limits = c(0,1))+
   theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        strip.text = element_text(size = 7,face="bold"),
-        panel.spacing.x = unit(1.2, "lines"))
+  theme(plot.title = element_text(hjust = 0.5), #Center the title
+        axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
+        strip.text = element_text(size = 7,face="bold"), #bolded facet title
+        panel.spacing.x = unit(1.2, "lines")) #Controlling the horizontal spacing of facet Grafik
 
 p3b
 
@@ -220,7 +216,6 @@ ggsave("Results/p_Anteil_Bevölkerung_München.jpg", plot = p3b,width = 8, heigh
 
 
 #This plot shows us the trend of net population inflow into München from 2000 to 2024.
-
  #Calculate net population inflow(ar) ,
  #ar = external migration in - external migration out + internal migration in - internal migration out
 mnew <- mnew%>%
@@ -236,7 +231,7 @@ p4 <- mnew%>%
                                 nichtdeutsch = "#0072B2",
                                 insgesamt = "black"))+
   scale_y_continuous(labels = label_number(scale = 1e-3))+ #Population in thousands
-theme_bw()+theme(plot.title = element_text(hjust = 0.5))
+theme_bw()+theme(plot.title = element_text(hjust = 0.5)) #Center the title
 
 p4
 
@@ -257,7 +252,7 @@ p5<- mnew%>%
                                 nichtdeutsch = "#0072B2",
                                 insgesamt = "black"))+
   scale_y_continuous(labels = label_number(scale = 1e-3)) + #Population in thousands
-  theme_bw()+theme(plot.title = element_text(hjust = 0.5),
+  theme_bw()+theme(plot.title = element_text(hjust = 0.5), #Center the title
                    legend.position = "none",     #Remove Legend
                    strip.text = element_blank()) #Remove facet title
 
@@ -279,8 +274,8 @@ p6<-mnew%>%
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2",
                                 insgesamt = "black"))+
-  scale_y_continuous(labels = label_number(scale = 1e-3)) +
-  theme_bw()+ theme(plot.title = element_text(hjust = 0.5),
+  scale_y_continuous(labels = label_number(scale = 1e-3)) + #Population in thousands
+  theme_bw()+ theme(plot.title = element_text(hjust = 0.5), #Center the title
                     legend.position = "none",     #Remove Legend
                     strip.text = element_blank()) #Remove facet title
 p6
