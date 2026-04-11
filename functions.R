@@ -8,7 +8,8 @@ remove_NAs <- function(df) {
   return(df)
 }
 
-# FUNC2: remove_Auspraegung, removes "(deutsch)", "(nichtdeutsch)" and "(insgesamt)" from values
+# FUNC2: remove_Auspraegung, removes "(deutsch)", "(nichtdeutsch)", "(insgesamt)" and "(auch innerhalb der räumlichen Einheit)"
+#                            from values in the data frame
 remove_Auspraegung <- function(df) {
   require(dplyr)
   df <- df %>% 
