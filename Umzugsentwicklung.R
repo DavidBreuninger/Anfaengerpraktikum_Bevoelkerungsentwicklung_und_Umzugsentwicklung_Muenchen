@@ -32,7 +32,7 @@ plot_wegzug_Stadt <- ggplot(wegzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = 
   theme_bw() + 
   labs(fill = "Wegzug", y = "Anteil von Wegzügen")  +
   scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "innerstaedtisch" = "#8491B4")) + 
-  theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 11), legend.title = element_text(size = 12))
+  theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 12), title = element_text(size = 12))
 
 # plot for slide
 plot_wegzug_Bezirke <- ggplot(wegzug_Bezirksgruppen_long, 
@@ -43,7 +43,7 @@ plot_wegzug_Bezirke <- ggplot(wegzug_Bezirksgruppen_long,
   theme_bw() + 
   labs(fill = "Wegzug", y = "Anteil von Wegzügen") +
   scale_fill_manual(values = c("außerstaedtisch" = "#F0D852", "nicht benachbarte Bezirke" = "#009292", "Nachbarbezirke" = "#DB6D00", "selber Bezirk" = "#B66DFF")) +
-  theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 11), legend.title = element_text(size = 12))
+  theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 12), title = element_text(size = 12))
 
 # save plots
 ggsave("Results/plot_wegzug_Stadt.jpg", plot = plot_wegzug_Stadt, width = 12, height = 8)
@@ -75,8 +75,7 @@ plot_stadt_prozent <- ggplot(Mobilitaet_muenchen_weg,
   labs(y = "Anteil in Prozent (Anzahl Wegzüge / mittl. Bevölkerung * 100)", color = "Wegzug") + 
   theme_bw() +
   scale_color_manual(values = c("#F0D852", "#8491B4")) +
-  theme(legend.text = element_text(size = 11), legend.title = element_text(size = 12))
-plot_stadt_prozent
+  theme(legend.text = element_text(size = 12), title = element_text(size = 12))
 
 # mutate column with percentage of people moving away from a district in Munich, 
 # "inner-/außerstaedtisch" summed up for each year
@@ -90,7 +89,8 @@ Mobilitaet_allg <- Mobilitaet_muenchen_weg %>%
 plot_muenchen_prozent <- ggplot(Mobilitaet_allg, aes(x = Jahr,  y = Prozent)) +
   geom_point(color = "black") + geom_line(color = "black") +
   labs(y = "Anteil in Prozent (Anzahl Wegzüge / mittl. Bevölkerung * 100)",) +
-  theme_bw()
+  theme_bw() + 
+  theme(title = element_text(size = 12))
 
 # save plots
 ggsave("Results/plot_muenchen_prozent.jpg", plot = plot_muenchen_prozent, width = 12, height = 8)
