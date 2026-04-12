@@ -105,30 +105,27 @@ p1
 ggsave("Results/p_Einwohnerzahl.jpg", plot = p1,width = 10, height = 6)
 
 
-#This plot shows us the population growth rate of each district compared to 2002.
-#Make the population into index (2002=100) and then sort the districts by the latest year.
- #Calculate the index : Current value / 2002 value × 100
-bnew_index <- bnew %>%
+#This plot shows us the population growth rate of each district compared to 2000.
+#Make the population into index (2000=100) and then sort the districts by the latest year.
+ #Calculate the index : Current value / 2000 value × 100
+mnew_index <- mnew %>%
   group_by(Raumbezug,Ausprägung) %>%
-  mutate(indexb1 = 100 * Basiswert.1 / Basiswert.1[Jahr == 2002]
-  )
+  mutate(indexb1 = 100 * Basiswert.5 / Basiswert.5[Jahr == 2000])
  
  #Sort by latest year
-order1<- bnew_index%>% 
-  filter(Jahr == max(Jahr),Raumbezug != "Stadt München") %>% 
+order1<- mnew_index%>% 
+  filter(Jahr == max(Jahr),Raumbezug != "Stadt München",Ausprägung == "insgesamt") %>% 
   arrange(desc(indexb1))
 
  #Redefining the order of zones,those with faster growth are listed first.
-bnew_index$Raumbezug <- factor(bnew_index$Raumbezug , levels = order1$Raumbezug )
+mnew_index$Raumbezug <- factor(mnew_index$Raumbezug , levels = order1$Raumbezug )
 
-p2 <- bnew_index %>% filter(Raumbezug != "Stadt München") %>% 
+p2 <- mnew_index %>% filter(Raumbezug != "Stadt München",Ausprägung == "insgesamt") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
   geom_point(color = "black",size=1) +
   geom_line(color = "black")+ facet_wrap(~ Raumbezug) + 
-  labs(y = "Bevölkerungsindex (2002=100)",
-       title = "Prozentuale Bevölkerungsentwicklung nach Stadtbezirken")+
-  theme_bw()+ scale_x_continuous(breaks = seq(2000, 2025, 5),
-                                  limits = c(2000, NA))+ #Set the x-axis from 2000 to 2005
+  labs(y = "Bevölkerungsindex (2000=100)",
+       title = "Prozentuale Bevölkerungsentwicklung nach Stadtbezirken")+theme_bw()+
   theme(plot.title = element_text(hjust = 0.5), #Center the title
         axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
         strip.text = element_text(size = 7,face="bold"), #bolded facet title
@@ -139,21 +136,18 @@ p2
 ggsave("Results/p_Prozentuale_Bevölkerungsentwicklung.jpg", plot = p2,width = 10, height = 6)
 
 
-#This plot shows us the population growth rate of München compared to 2002.
- #Calculate the index : Current value / 2002 value × 100
-bnew_index2 <- bnew %>%
+#This plot shows us the population growth rate of München compared to 2000.
+ #Calculate the index : Current value / 2000 value × 100
+mnew_index2 <- mnew %>%
   group_by(Raumbezug,Ausprägung) %>%
-  mutate(indexb1 = 100 * Basiswert.1 / Basiswert.1[Jahr == 2002]
-  )
+  mutate(indexb1 = 100 * Basiswert.5 / Basiswert.5[Jahr == 2000])
 
-p2b <-bnew_index2 %>% filter(Raumbezug == "Stadt München") %>% 
+p2b <-mnew_index2 %>% filter(Raumbezug == "Stadt München", Ausprägung == "insgesamt") %>% 
   ggplot(aes(x = Jahr, y = indexb1)) +
   geom_point(color = "black",size=1) +
   geom_line(color = "black")+  
-  labs(y = "Bevölkerungsindex (2002=100)",
-       title = "Prozentuale Bevölkerungsentwicklung in der Stadt München")+
-  theme_bw() + scale_x_continuous(breaks = seq(2000, 2025, 5),
-                                  limits = c(2000, NA))+ #Set the x-axis from 2000 to 2005
+  labs(y = "Bevölkerungsindex (2000=100)",
+       title = "Prozentuale Bevölkerungsentwicklung in der Stadt München")+theme_bw() +
   theme(plot.title = element_text(hjust = 0.5), #Center the title
         axis.text.x = element_text(angle = 45, hjust = 1)) #Rotate x-axis by 45°
 
