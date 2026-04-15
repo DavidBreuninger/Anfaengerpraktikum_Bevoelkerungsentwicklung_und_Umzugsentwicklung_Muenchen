@@ -82,7 +82,7 @@ ggplot() +
     values = scales::rescale(c(0, 25,  35, 40, 45, 50, 55, 60, 65, 75, 100)),
     breaks = c(0, 25, 50, 75, 100)
   ) +
-  facet_wrap(~ Jahr, nrow = 4) +
+  facet_wrap(~ Jahr, nrow = 5) +
   theme_minimal() +
   labs(
        fill = "Prozent") +
@@ -91,6 +91,37 @@ ggplot() +
         axis.title = element_blank())
  gn1
  
+ plotdata%>%
+   filter(Ausprägung == "nichtdeutsch")%>%
+   ggplot(aes(x = Jahr, y = zur, color = sb_name)) +geom_line()
+ 
+ plotdata%>%
+   filter(Ausprägung != "insgesamt")%>%
+   ggplot(aes(x = Jahr, y = zur, color = Ausprägung)) +geom_line() +facet_wrap(~ sb_name)
+ 
+ plotdata%>%
+   filter(Ausprägung != "insgesamt")%>%
+   ggplot(aes(x = Jahr, y = wer, color = Ausprägung)) +geom_line() +facet_wrap(~ sb_name)
+ 
+ 
+ 
+ gn11 <- plotdata%>%
+   filter(Ausprägung == "deutsch")%>%
+   ggplot() +
+   geom_sf(aes(fill = zur)) +
+   scale_fill_viridis_c(
+     limits = c(0, 100),
+     values = scales::rescale(c(0, 25,  35, 40, 45, 50, 55, 60, 65, 75, 100)),
+     breaks = c(0, 25, 50, 75, 100)
+   ) +
+   facet_wrap(~ Jahr, nrow = 5) +
+   theme_minimal() +
+   labs(
+     fill = "Prozent") +
+   theme(axis.text = element_blank(),
+         axis.ticks = element_blank(),
+         axis.title = element_blank())
+ gn11
  
 gn2 <- plotdata%>%
    filter(Ausprägung == "nichtdeutsch")%>%
@@ -101,7 +132,7 @@ gn2 <- plotdata%>%
      values = scales::rescale(c(0, 25,  40, 45, 50, 55, 60,  75, 100)),
      breaks = c(0, 25, 50, 75, 100)
    ) +
-   facet_wrap(~ Jahr, nrow = 4) +
+   facet_wrap(~ Jahr, nrow = 5) +
    theme_minimal() +
    labs(
         fill = "Prozent") +
@@ -110,6 +141,24 @@ gn2 <- plotdata%>%
          axis.title = element_blank())
 gn2
  
+
+gn22 <- plotdata%>%
+  filter(Ausprägung == "deutsch")%>%
+  ggplot() +
+  geom_sf(aes(fill = wer)) +
+  scale_fill_viridis_c(
+    limits = c(0, 100),
+    values = scales::rescale(c(0, 25,  40, 45, 50, 55, 60,  75, 100)),
+    breaks = c(0, 25, 50, 75, 100)
+  ) +
+  facet_wrap(~ Jahr, nrow = 5) +
+  theme_minimal() +
+  labs(
+    fill = "Prozent") +
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank())
+gn22
  
  
 g1 <- plotdata%>%
@@ -412,7 +461,7 @@ ggplot(plotdataBevölkerungsentwicklung) +
           limits = c(20000,  125000),
           breaks = c(0, 20000, 40000,  60000, 80000, 100000, 125000)
         )
-
+g7
 #Bevölkerungsdichte 2024
 plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
   mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
@@ -436,7 +485,7 @@ g8 <-ggplot(plotdataBevölkerungsdichte) +
         )
 
 
-
+g8
 
 
 
@@ -528,22 +577,20 @@ g11<-ggplot(plotdataNettorated) +
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
-ggsave("Results/gn1.jpg", plot = gn1,width = 4, height = 3)
-ggsave("Results/gn2.jpg", plot = gn2,width = 4, height = 3)
-ggsave("Results/gn3.jpg", plot = gn3,width = 4, height = 3)
-ggsave("Results/gn4.jpg", plot = gn4,width = 4, height = 3)
-ggsave("Results/gn4t.jpg", plot = gn4t,width = 4, height = 3)
+g7
+g8
 
 
-ggsave("Results/g1.jpg", plot = g1,width = 3, height = 3)
-ggsave("Results/g2.jpg", plot = g2,width = 3, height = 3)
-ggsave("Results/g3.jpg", plot = g3,width = 3, height = 3)
-ggsave("Results/g4.jpg", plot = g4,width = 3, height = 3)
+
+ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
+ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
+
+
+
 ggsave("Results/g10.jpg", plot = g10,width = 3, height = 3)
 ggsave("Results/g11.jpg", plot = g11,width = 3, height = 3)
 
-ggsave("Results/g5.jpg", plot = g5,width = 3, height = 3)
-ggsave("Results/g6.jpg", plot = g6,width = 3, height = 3)
-ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
-ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
 ggsave("Results/g9.jpg", plot = g9,width = 4, height = 3)
+
+
+#g9 bis g11 g7 und g8 gn sachen wurden durch linienplots erstzt
