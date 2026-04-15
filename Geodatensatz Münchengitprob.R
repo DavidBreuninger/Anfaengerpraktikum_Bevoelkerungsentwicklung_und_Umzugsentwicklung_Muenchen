@@ -461,7 +461,7 @@ ggplot(plotdataBevölkerungsentwicklung) +
           limits = c(20000,  125000),
           breaks = c(0, 20000, 40000,  60000, 80000, 100000, 125000)
         )
-
+g7
 #Bevölkerungsdichte 2024
 plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
   mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
@@ -485,7 +485,7 @@ g8 <-ggplot(plotdataBevölkerungsdichte) +
         )
 
 
-
+g8
 
 
 
@@ -577,29 +577,20 @@ g11<-ggplot(plotdataNettorated) +
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
-
-ggsave("Results/gn1.jpg", plot = gn1,width = 3, height = 3)
-ggsave("Results/gn2.jpg", plot = gn2,width = 3, height = 3)
-ggsave("Results/gn11.jpg", plot = gn11,width = 3, height = 3)
-ggsave("Results/gn22.jpg", plot = gn22,width = 3, height = 3)
+g7
+g8
 
 
-ggsave("Results/gn1.jpg", plot = gn1,width = 4, height = 3)
-ggsave("Results/gn2.jpg", plot = gn2,width = 4, height = 3)
-ggsave("Results/gn3.jpg", plot = gn3,width = 4, height = 3)
-ggsave("Results/gn4.jpg", plot = gn4,width = 4, height = 3)
-ggsave("Results/gn4t.jpg", plot = gn4t,width = 4, height = 3)
+
+ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
+ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
 
 
-ggsave("Results/g1.jpg", plot = g1,width = 3, height = 3)
-ggsave("Results/g2.jpg", plot = g2,width = 3, height = 3)
-ggsave("Results/g3.jpg", plot = g3,width = 3, height = 3)
-ggsave("Results/g4.jpg", plot = g4,width = 3, height = 3)
+
 ggsave("Results/g10.jpg", plot = g10,width = 3, height = 3)
 ggsave("Results/g11.jpg", plot = g11,width = 3, height = 3)
 
-ggsave("Results/g5.jpg", plot = g5,width = 3, height = 3)
-ggsave("Results/g6.jpg", plot = g6,width = 3, height = 3)
-ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
-ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
 ggsave("Results/g9.jpg", plot = g9,width = 4, height = 3)
+
+
+#g9 bis g11 g7 und g8 gn sachen wurden durch linienplots erstzt
