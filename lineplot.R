@@ -83,7 +83,7 @@ mnew <- mnew%>%
     sn == 25 ~ "Laim",
     TRUE ~ Raumbezug))
 
-#creat plots
+#create plots
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
  #choose the data only from München
