@@ -5,7 +5,7 @@ library(checkmate)
 library(lubridate)
 library(readxl)
 library(data.table)
-source("functions.R")
+source("Programs/functions.R")
 
 # read csv files
 Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
