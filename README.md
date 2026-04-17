@@ -1,6 +1,6 @@
 # Praktikum
 
-Author: Ferdinand Balser, Wenyou Lou, Duc Pham, David Breuninger
+Author: Ferdinand Balser, Wenyu Lou, Duc Pham, David Breuninger
 
 ## Introduction
 
