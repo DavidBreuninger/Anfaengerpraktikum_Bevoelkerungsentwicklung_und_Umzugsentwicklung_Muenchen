@@ -14,6 +14,7 @@ plot1 <- mnew%>%
 
 p1<-ggplot(plot1, aes(x = Jahr, y = Basiswert.5, color = Ausprägung)) + geom_point() + 
   geom_line() +labs(y = "mittlere Wohnbevölkerung in Millionen", 
+                    title = "Entwicklung mittlerer Wohnbevölkerung",
                     color="Staatsbürgerschaft")+
   scale_colour_manual(values = c(deutsch = "#E69F00",
                                  nichtdeutsch = "#0072B2",
@@ -23,4 +24,4 @@ p1<-ggplot(plot1, aes(x = Jahr, y = Basiswert.5, color = Ausprägung)) + geom_po
 p1
 
 #save plot
-ggsave("Results/p_Einwohnerzahl.jpg", plot = p1,width = 10, height = 6)
+ggsave("Results/p_mittlerer_Wohnbevölkerung.jpg", plot = p1,width = 10, height = 6)

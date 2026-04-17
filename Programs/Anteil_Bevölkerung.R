@@ -20,6 +20,7 @@ p3<-mnew%>%
   geom_point(size=0.6)+ geom_line() +
   facet_wrap(~Raumbezug) +
   labs(y= "Anteil an der Bevölkerung",
+       title = "Entwicklung der Staatsbürgerschaft in den Bezirken",
        color = "Staatsbürgerschaft")+
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2"))+

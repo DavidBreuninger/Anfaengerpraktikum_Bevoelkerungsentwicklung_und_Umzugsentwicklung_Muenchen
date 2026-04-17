@@ -19,6 +19,7 @@ p3b<-mnew%>%
   ggplot(aes(x = Jahr, y = rb5, color = Ausprägung)) +
   geom_point(size=0.6)+ geom_line() +
   labs(y= "Anteil an der Bevölkerung",
+       title = "Entwicklung der Staatsbürgerschaft in der Stadt München",
        color = "Staatsbürgerschaft")+
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2"))+
