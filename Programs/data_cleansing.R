@@ -2,7 +2,6 @@ library(tidyr)
 library(dplyr)
 library(stringr)
 library(checkmate)
-library(lubridate)
 library(readxl)
 library(data.table)
 source("Programs/functions.R")
@@ -10,6 +9,8 @@ source("Programs/functions.R")
 # read csv files
 Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
 Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
+mnew <- Mobilitaet 
+bnew <- Bevoelkerungsdichte
 
 # remove columns or rows consisting of only NAs
 Mobilitaet <- remove_NAs(Mobilitaet)
@@ -235,10 +236,17 @@ umzug_all <- bind_rows(umzug2005_grouped, umzug2006_grouped, umzug2007_grouped, 
                        umzug2021_grouped, umzug2022_grouped, umzug2023_grouped, umzug2024_grouped)
 
 # select different constellation of columns for plotting
-umzug_ohneBezirke <- umzug_all %>%
-  select(!all_of(as.character(c(1:25))))
+
+# data set contains the number of people, for each district, 
+# moving and staying in Munich ("innerstaedtisch") or moving away from Munich ("außerstaedtisch")
 umzug_innen_außen <-  umzug_all %>%
   select(!all_of(as.character(c(1:25, "selber_Bezirk", "Nachbarbezirke", "Restbezirke"))))
+
+# data set contains the number of people, for each district, 
+# moving but staying in the same district ("selber_Bezirk"), 
+# moving to a neighbouring district ("Nachbarbezirk").
+# moving to neither the same district or a neighbouring one ("Restbezirke")
+# or moving away from Munich ("außerstaedtisch")
 umzug_Bezirksgruppen <- umzug_all %>%
   select(!all_of(as.character(c(1:25, "innerstaedtisch"))))
 
@@ -247,4 +255,80 @@ write.csv(umzug_ohneBezirke, "Clean_Data/umzug_ohneBezirke.csv", row.names = FAL
 write.csv(umzug_innen_außen, "Clean_Data/umzug_innen_außen.csv", row.names = FALSE)
 write.csv(umzug_Bezirksgruppen, "Clean_Data/umzug_Bezirksgruppen.csv", row.names = FALSE)
 
+# clean the data from mnew , bnew
+# Add a new column called sn to store the district number
+# Give Stadt München number 26
+bnew <- bnew%>%
+  mutate(
+    sn = case_when(
+      Raumbezug == "Stadt München" ~ 26,
+      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
 
+mnew <- mnew%>%
+  mutate(
+    sn = case_when(
+      Raumbezug == "Stadt München" ~ 26,
+      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
+
+# remove the number in Raumbezug
+bnew <-bnew%>% 
+  mutate(Raumbezug = case_when(
+    sn == 1 ~ "Altstadt",
+    sn == 2 ~ "Ludwigsvorstadt",
+    sn == 3 ~ "Maxvorstadt",
+    sn == 4 ~ "Schwabing-West",
+    sn == 5 ~ "Haidhausen",
+    sn == 6 ~ "Sendling",
+    sn == 7 ~ "Sendling-Westpark",
+    sn == 8 ~ "Schwanthalerhöhe",
+    sn == 9 ~ "Neuhausen",
+    sn == 10 ~ "Moosach",
+    sn == 11 ~ "Milbertshofen",
+    sn == 12 ~ "Schwabing",
+    sn == 13 ~ "Bogenhausen",
+    sn == 14 ~ "Berg am Laim",
+    sn == 15 ~ "Trudering",
+    sn == 16 ~ "Ramersdorf",
+    sn == 17 ~ "Obergiesing",
+    sn == 18 ~ "Untergiesing",
+    sn == 19 ~ "Thalkirchen",
+    sn == 20 ~ "Hadern",
+    sn == 21 ~ "Pasing",
+    sn == 22 ~ "Aubing",
+    sn == 23 ~ "Allach",
+    sn == 24 ~ "Feldmoching",
+    sn == 25 ~ "Laim",
+    TRUE ~ Raumbezug))
+
+mnew <- mnew%>%
+  mutate(Raumbezug = case_when(
+    sn == 1 ~ "Altstadt",
+    sn == 2 ~ "Ludwigsvorstadt",
+    sn == 3 ~ "Maxvorstadt",
+    sn == 4 ~ "Schwabing-West",
+    sn == 5 ~ "Haidhausen",
+    sn == 6 ~ "Sendling",
+    sn == 7 ~ "Sendling-Westpark",
+    sn == 8 ~ "Schwanthalerhöhe",
+    sn == 9 ~ "Neuhausen",
+    sn == 10 ~ "Moosach",
+    sn == 11 ~ "Milbertshofen",
+    sn == 12 ~ "Schwabing",
+    sn == 13 ~ "Bogenhausen",
+    sn == 14 ~ "Berg am Laim",
+    sn == 15 ~ "Trudering",
+    sn == 16 ~ "Ramersdorf",
+    sn == 17 ~ "Obergiesing",
+    sn == 18 ~ "Untergiesing",                          
+    sn == 19 ~ "Thalkirchen",
+    sn == 20 ~ "Hadern",
+    sn == 21 ~ "Pasing",
+    sn == 22 ~ "Aubing",
+    sn == 23 ~ "Allach",
+    sn == 24 ~ "Feldmoching",
+    sn == 25 ~ "Laim",
+    TRUE ~ Raumbezug))
+
+# save
+write_csv(mnew, "Clean_Data/mnew.csv")
+write_csv(bnew, "Clean_Data/bnew.csv")
