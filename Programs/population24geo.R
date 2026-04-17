@@ -1,3 +1,5 @@
+library("sf")
+
 #geo data transformed
 bezirke <- bezirke %>%
   mutate(geometry = st_as_sfc(shape)) %>%
