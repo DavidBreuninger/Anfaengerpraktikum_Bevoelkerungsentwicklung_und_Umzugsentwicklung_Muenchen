@@ -83,6 +83,9 @@ mnew <- mnew%>%
     sn == 25 ~ "Laim",
     TRUE ~ Raumbezug))
 
+write_csv(mnew, "Clean_Data/mnew.csv")
+write_csv(bnew, "Clean_Data/bnew.csv")
+
 #create plots
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
@@ -225,7 +228,7 @@ theme_bw()+theme(plot.title = element_text(hjust = 0.5)) #Center the title
 p4
 
  #save plot
-ggsave("Results/p_Nettoumzug.jpg", plot = p5,width = 6, height = 4)
+ggsave("Results/p_Nettoumzug.jpg", plot = p4,width = 6, height = 4)
 
 
 #This plot shows us the trend of  population inflow into München from 2000 to 2024.
