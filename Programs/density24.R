@@ -17,7 +17,7 @@ Bevölkerung_clean <- Bevoelkerungsdichte %>%
 plotdatabevölkerung <- bezirke %>%
   left_join(Bevölkerung_clean, by = c("sb_nummer" = "bezirk_num"))
 
-#population density 2024
+#population density 2024 slide 6
 plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
   mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
   filter(Jahr == 2024, Ausprägung == "insgesamt")
