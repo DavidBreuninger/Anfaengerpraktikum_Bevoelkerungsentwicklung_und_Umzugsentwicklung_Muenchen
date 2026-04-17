@@ -236,10 +236,17 @@ umzug_all <- bind_rows(umzug2005_grouped, umzug2006_grouped, umzug2007_grouped, 
                        umzug2021_grouped, umzug2022_grouped, umzug2023_grouped, umzug2024_grouped)
 
 # select different constellation of columns for plotting
-umzug_ohneBezirke <- umzug_all %>%
-  select(!all_of(as.character(c(1:25))))
+
+# data set contains the number of people, for each district, 
+# moving and staying in Munich ("innerstaedtisch") or moving away from Munich ("außerstaedtisch")
 umzug_innen_außen <-  umzug_all %>%
   select(!all_of(as.character(c(1:25, "selber_Bezirk", "Nachbarbezirke", "Restbezirke"))))
+
+# data set contains the number of people, for each district, 
+# moving but staying in the same district ("selber_Bezirk"), 
+# moving to a neighbouring district ("Nachbarbezirk").
+# moving to neither the same district or a neighbouring one ("Restbezirke")
+# or moving away from Munich ("außerstaedtisch")
 umzug_Bezirksgruppen <- umzug_all %>%
   select(!all_of(as.character(c(1:25, "innerstaedtisch"))))
 
