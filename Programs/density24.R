@@ -44,4 +44,4 @@ density2024 <- ggplot(plotdataBevölkerungsdichte) +
 
 density2024
 
-ggsave("Results/density2024.jpg", plot = density2024, width = 3, height = 3)
+ggsave("Results/density2024.jpg", plot = density2024, width = 8, height = 5)
