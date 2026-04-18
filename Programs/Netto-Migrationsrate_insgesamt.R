@@ -32,13 +32,12 @@ g9 <- ggplot(plotdataNettorate) +
     mid = "white",
     high = "blue",
     midpoint = 0,
-    limits = c(-6, 6),
-    breaks = c(-6, -4, -2, 0, 2, 4, 6)
+    limits = c(-8, 8),
+    breaks = c(-8, -4,  0, 4, 8)
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(fill = "Rate",
-       title = "mit Rate = ((Zuzüge - Wegzüge) / Bevölkerung + 100)") +
+  labs(fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
