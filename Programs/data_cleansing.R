@@ -250,8 +250,7 @@ umzug_innen_außen <-  umzug_all %>%
 umzug_Bezirksgruppen <- umzug_all %>%
   select(!all_of(as.character(c(1:25, "innerstaedtisch"))))
 
-# save 
-write.csv(umzug_ohneBezirke, "Clean_Data/umzug_ohneBezirke.csv", row.names = FALSE)
+# save new data sets
 write.csv(umzug_innen_außen, "Clean_Data/umzug_innen_außen.csv", row.names = FALSE)
 write.csv(umzug_Bezirksgruppen, "Clean_Data/umzug_Bezirksgruppen.csv", row.names = FALSE)
 

@@ -1,7 +1,8 @@
 ## This file will install and load all the necessary packages
 
 # vector of needed packages
-packages <- c("ggplot2", "readr", "sf", "tidyverse", "scales", "dplyr", "tidyr", "data.table", "checkmate")
+packages <- c("ggplot2", "readr", "sf", "tidyverse", "scales", "dplyr", 
+              "tidyr", "data.table", "checkmate", "readxl")
 
 # install packages
 if (length(setdiff(packages, rownames(installed.packages()))) != 0 ) {
