@@ -35,7 +35,7 @@ g9 <- ggplot(plotdataNettorate) +
     limits = c(-8, 8),
     breaks = c(-8, -4,  0, 4, 8)
   ) +
-  facet_wrap(~ Jahr) +
+  facet_wrap(~ Jahr, nrow = 4) +
   theme_minimal() +
   labs(fill = "Prozent") +
   theme(axis.text = element_blank(),
@@ -44,4 +44,4 @@ g9 <- ggplot(plotdataNettorate) +
 
 g9 
 
-ggsave("Results/nettoumzugsrate_gesamt.jpg", plot = g9, width = 6, height = 6)
+ggsave("Results/nettoumzugsrate_gesamt.jpg", plot = g9, width = 4, height = 3)
