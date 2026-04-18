@@ -42,4 +42,4 @@ population2024 <- ggplot(plotdataBevölkerungsentwicklung) +
 
 population2024
 
-ggsave("Results/population2024.jpg", plot = g7, width = 3, height = 3)
+ggsave("Results/population2024.jpg", plot = population2024, width = 3, height = 3)
