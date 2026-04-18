@@ -34,7 +34,8 @@ density2024 <- ggplot(plotdataBevölkerungsdichte) +
         axis.ticks = element_blank(),
         axis.title = element_blank(),
         plot.title = element_text(size = 20),
-        legend.title = element_text(size = 15)) + 
+        legend.title = element_text(size = 15),
+        legend.text = element_text(size = 12)) + 
   scale_fill_gradient(
     low = "#EFEDF5",
     high = "#54278F",
