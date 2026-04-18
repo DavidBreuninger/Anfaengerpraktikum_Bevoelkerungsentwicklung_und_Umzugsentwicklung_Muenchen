@@ -3,20 +3,19 @@ Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 # pivot to long for plotting
 Mobilitaet_long <- Mobilitaet_thin %>%
-  pivot_longer(cols = c("innerstädtisch.Weggezogene..", "außerstädtisch.Weggezogene."), 
+  pivot_longer(cols = c("innerstädtisch_Weggezogene", "außerstädtisch_Weggezogene"), 
                names_to = "Wegzug",
-               values_to = "Anzahl_Wegzug") %>%
-  rename("mittlere_Bevölkerung" = mittlere.Hauptwohnsitzbevölkerung.)
+               values_to = "Anzahl_Wegzug") 
 
 # mutate column with percentage of people moving away from a district in Munich, 
 # with column "Wegzug" differentiating between "inner-/außerstaedtisch"
 Mobilitaet_muenchen_weg <- Mobilitaet_long %>%
   filter(Ausprägung == "insgesamt" & Raumbezug == "Stadt München") %>%
-  select(all_of(c("Jahr", "Wegzug", "Anzahl_Wegzug", "mittlere_Bevölkerung"))) %>%
+  select(all_of(c("Jahr", "Wegzug", "Anzahl_Wegzug", "mittlere_Hauptwohnsitzbevölkerung"))) %>%
   mutate(Wegzug = case_when(
-    Wegzug == "innerstädtisch.Weggezogene.." ~ "innerstaedtisch",
-    Wegzug == "außerstädtisch.Weggezogene." ~ "außerstaedtisch")) %>% 
-  mutate(Prozent = Anzahl_Wegzug / mittlere_Bevölkerung * 100)
+    Wegzug == "innerstädtisch_Weggezogene" ~ "innerstaedtisch",
+    Wegzug == "außerstädtisch_Weggezogene" ~ "außerstaedtisch")) %>% 
+  mutate(Prozent = Anzahl_Wegzug / mittlere_Hauptwohnsitzbevölkerung * 100)
 
 # line plot for moving away from district in Munich, split in "inner-/außerstaedtisch"
 plot_stadt_prozent <- ggplot(Mobilitaet_muenchen_weg,

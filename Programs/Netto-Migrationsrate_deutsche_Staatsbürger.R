@@ -35,8 +35,8 @@ g11 <- ggplot(plotdataNettorated) +
     mid = "white",
     high = "blue",
     midpoint = 0,
-    limits = c(-6, 6),
-    breaks = c(-6, -3, 0, 3, 6)
+    limits = c(-8, 8),
+    breaks = c(-8, -6, -4, -2, 0, 2, 4, 6, 8)
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
