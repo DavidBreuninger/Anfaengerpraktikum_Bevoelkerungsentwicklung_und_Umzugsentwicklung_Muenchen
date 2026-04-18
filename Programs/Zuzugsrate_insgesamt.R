@@ -48,7 +48,7 @@ plotdatali <- plotdatal %>%
 
 #lineplot Zuzugsrate total
 g13 <- ggplot(plotdatali, aes(x = Jahr, y = Zuzugsrate)) +
-  geom_line(color = "black", size = 1) +
+  geom_line(color = "black") +
   geom_point() +
   facet_wrap(~ Raumbezug) +
   theme_minimal()+
