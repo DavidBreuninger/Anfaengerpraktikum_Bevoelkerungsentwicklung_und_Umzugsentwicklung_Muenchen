@@ -1,3 +1,4 @@
+## code for the plot of population density 2024 on slide 6
 #read data
 vablock_stadtbezirk <- read.csv("Data/vablock_stadtbezirk.csv")
 Bevoelkerungsdichte_thin <- read.csv("Clean_Data/Bevoelkerungsdichte_thin.csv")
@@ -13,11 +14,12 @@ bezirke <- st_transform(bezirke, 4326)
 plotdatabevölkerung <- bezirke %>%
   left_join(Bevoelkerungsdichte_thin, by = c("sb_nummer" = "BezirksID"))
 
-#population density 2024 slide 6
+#population density 2024 
 plotdataBevölkerung2024 <- plotdatabevölkerung %>%
   filter(Jahr == 2024, Ausprägung == "insgesamt")
 
-density2024 <- ggplot(plotdataBevölkerungsdichte) +
+# plot
+density2024 <- ggplot(plotdataBevölkerung2024) +
   geom_sf(aes(fill = Bevölkerungsdichte)) +
   theme_minimal() +
   labs(title = "Bevölkerungsdichte 2024",

@@ -1,7 +1,8 @@
-library("sf")
+## this file contains code for the plot of the population in 2024 on slide 6
+
 #read data
 vablock_stadtbezirk <- read.csv("Data/vablock_stadtbezirk.csv")
-Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
+Bevoelkerungsdichte_thin <- read.csv("Clean_Data/Bevoelkerungsdichte_thin.csv")
 
 #geo data transformed
 bezirke <- vablock_stadtbezirk %>%
@@ -10,21 +11,17 @@ bezirke <- vablock_stadtbezirk %>%
 st_crs(bezirke) <- 25832
 bezirke <- st_transform(bezirke, 4326)
 
-#population data for join prepared
-Bevölkerung_clean <- Bevoelkerungsdichte %>%
-  mutate(bezirk_num = as.numeric(sub(" .*", "", Raumbezug))) %>%
-  filter(grepl("^[0-9]{2} ", Raumbezug))
-
 #perform join
 plotdatabevölkerung <- bezirke %>%
-  left_join(Bevölkerung_clean, by = c("sb_nummer" = "bezirk_num"))
+  left_join(Bevoelkerungsdichte_thin, by = c("sb_nummer" = "BezirksID"))
 
-#population 2024 slide 6
-plotdataBevölkerungsentwicklung <- plotdatabevölkerung %>%
-  filter(Jahr == 2024)
+#population 2024 
+plotdataBevölkerung2024 <- plotdatabevölkerung %>%
+  filter(Jahr == 2024, Ausprägung == "insgesamt")
 
-population2024 <- ggplot(plotdataBevölkerungsentwicklung) +
-  geom_sf(aes(fill = Basiswert.1)) +
+# plot
+population2024 <- ggplot(plotdataBevölkerung2024) +
+  geom_sf(aes(fill = Hauptwohnsitzbevölkerung)) +
   theme_minimal() +
   labs(title = "Einwohneranzahl 2024",
        fill = "Anzahl") +
