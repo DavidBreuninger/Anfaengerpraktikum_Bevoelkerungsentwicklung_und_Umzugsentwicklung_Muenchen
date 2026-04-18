@@ -1,3 +1,5 @@
+## this file contains the code for the line plot on slide 22
+
 # read data
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
