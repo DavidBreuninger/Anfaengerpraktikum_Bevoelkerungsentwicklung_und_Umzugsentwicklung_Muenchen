@@ -47,7 +47,8 @@ Mobilitaet_thin <- Mobilitaet_thin %>%
     values_from = Basiswert.4) %>%
   pivot_wider(
     names_from = Name.Basiswert.5,
-    values_from = Basiswert.5)
+    values_from = Basiswert.5) %>%
+  rename_all(function(x) gsub(" ", "_", x))
 
 Bevoelkerungsdichte_thin <- Bevoelkerungsdichte_thin %>%
   pivot_wider(
@@ -58,20 +59,93 @@ Bevoelkerungsdichte_thin <- Bevoelkerungsdichte_thin %>%
     values_from = Basiswert.1) %>%
   pivot_wider(
     names_from = Name.Basiswert.2,
-    values_from = Basiswert.2)
+    values_from = Basiswert.2) %>%
+  rename_all(function(x) gsub(" ", "_", x))
 
-# create column with numbers in "Raumbezug" to ease identification
+# create column with numbers in column "Raumbezug" to ease identification
+# and rename values in column "Raumbezug"
 Bevoelkerungsdichte_thin <- Bevoelkerungsdichte_thin %>%
   mutate(
     BezirksID = case_when(
       Raumbezug == "Stadt München" ~ 26,
-      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
+      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+")))) %>% 
+  mutate(Raumbezug = case_when(
+    BezirksID == 1 ~ "Altstadt",
+    BezirksID == 2 ~ "Ludwigsvorstadt",
+    BezirksID == 3 ~ "Maxvorstadt",
+    BezirksID == 4 ~ "Schwabing-West",
+    BezirksID == 5 ~ "Haidhausen",
+    BezirksID == 6 ~ "Sendling",
+    BezirksID == 7 ~ "Sendling-Westpark",
+    BezirksID == 8 ~ "Schwanthalerhöhe",
+    BezirksID == 9 ~ "Neuhausen",
+    BezirksID == 10 ~ "Moosach",
+    BezirksID == 11 ~ "Milbertshofen",
+    BezirksID == 12 ~ "Schwabing",
+    BezirksID == 13 ~ "Bogenhausen",
+    BezirksID == 14 ~ "Berg am Laim",
+    BezirksID == 15 ~ "Trudering",
+    BezirksID == 16 ~ "Ramersdorf",
+    BezirksID == 17 ~ "Obergiesing",
+    BezirksID == 18 ~ "Untergiesing",
+    BezirksID == 19 ~ "Thalkirchen",
+    BezirksID == 20 ~ "Hadern",
+    BezirksID == 21 ~ "Pasing",
+    BezirksID == 22 ~ "Aubing",
+    BezirksID == 23 ~ "Allach",
+    BezirksID == 24 ~ "Feldmoching",
+    BezirksID == 25 ~ "Laim",
+    TRUE ~ Raumbezug))
 
 Mobilitaet_thin <- Mobilitaet_thin %>%
   mutate(
     BezirksID = case_when(
       Raumbezug == "Stadt München" ~ 26,
-      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
+      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+")))) %>% 
+  mutate(Raumbezug = case_when(
+    BezirksID == 1 ~ "Altstadt",
+    BezirksID == 2 ~ "Ludwigsvorstadt",
+    BezirksID == 3 ~ "Maxvorstadt",
+    BezirksID == 4 ~ "Schwabing-West",
+    BezirksID == 5 ~ "Haidhausen",
+    BezirksID == 6 ~ "Sendling",
+    BezirksID == 7 ~ "Sendling-Westpark",
+    BezirksID == 8 ~ "Schwanthalerhöhe",
+    BezirksID == 9 ~ "Neuhausen",
+    BezirksID == 10 ~ "Moosach",
+    BezirksID == 11 ~ "Milbertshofen",
+    BezirksID == 12 ~ "Schwabing",
+    BezirksID == 13 ~ "Bogenhausen",
+    BezirksID == 14 ~ "Berg am Laim",
+    BezirksID == 15 ~ "Trudering",
+    BezirksID == 16 ~ "Ramersdorf",
+    BezirksID == 17 ~ "Obergiesing",
+    BezirksID == 18 ~ "Untergiesing",
+    BezirksID == 19 ~ "Thalkirchen",
+    BezirksID == 20 ~ "Hadern",
+    BezirksID == 21 ~ "Pasing",
+    BezirksID == 22 ~ "Aubing",
+    BezirksID == 23 ~ "Allach",
+    BezirksID == 24 ~ "Feldmoching",
+    BezirksID == 25 ~ "Laim",
+    TRUE ~ Raumbezug))
+
+# check columns classes
+sapply(Mobilitaet_thin, class)
+sapply(Bevoelkerungsdichte_thin, class)
+
+# turn certain columns to numeric 
+Mobilitaet_thin[, c(2, 4:9)] <- apply(Mobilitaet_thin[, c(2, 4:9)], 2 ,function(x) as.numeric(x))
+Bevoelkerungsdichte_thin[, c(2, 4:6)] <- apply(Bevoelkerungsdichte_thin[, c(2, 4:6)], 2 ,function(x) as.numeric(x))
+
+# check column classes again
+sapply(Mobilitaet_thin, class)
+sapply(Bevoelkerungsdichte_thin, class)
+
+# add columns "Gesamtwegzug" and "Gesamtzuzug" to data set Mobilitaet_thin
+Mobilitaet_thin <- Mobilitaet_thin %>% 
+  mutate(Gesamtwegzug = innerstädtisch_Weggezogene + außerstädtisch_Weggezogene) %>%
+  mutate(Gesamtzuzug = innerstädtisch_Zugezogene + außerstädtisch_Zugezogene)
 
 # save Mobilitaet_thin and Bevoelkerungsdichte_thin
 write.csv(Mobilitaet_thin, "Clean_Data/Mobilitaet_thin.csv", row.names = FALSE)
