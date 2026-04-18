@@ -1,7 +1,6 @@
-library("sf")
 #read data
 vablock_stadtbezirk <- read.csv("Data/vablock_stadtbezirk.csv")
-Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
+Bevoelkerungsdichte_thin <- read.csv("Clean_Data/Bevoelkerungsdichte_thin.csv")
 
 #geo data transformed
 bezirke <- vablock_stadtbezirk %>%
@@ -10,19 +9,12 @@ bezirke <- vablock_stadtbezirk %>%
 st_crs(bezirke) <- 25832
 bezirke <- st_transform(bezirke, 4326)
 
-##plots with population data
-#population data for join prepared
-Bevölkerung_clean <- Bevoelkerungsdichte %>%
-  mutate(bezirk_num = as.numeric(sub(" .*", "", Raumbezug))) %>%
-  filter(grepl("^[0-9]{2} ", Raumbezug))
-
 #perform join
 plotdatabevölkerung <- bezirke %>%
-  left_join(Bevölkerung_clean, by = c("sb_nummer" = "bezirk_num"))
+  left_join(Bevoelkerungsdichte_thin, by = c("sb_nummer" = "BezirksID"))
 
 #population density 2024 slide 6
-plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
-  mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
+plotdataBevölkerung2024 <- plotdatabevölkerung %>%
   filter(Jahr == 2024, Ausprägung == "insgesamt")
 
 density2024 <- ggplot(plotdataBevölkerungsdichte) +
