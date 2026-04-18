@@ -32,7 +32,8 @@ population2024 <- ggplot(plotdataBevölkerungsentwicklung) +
         axis.ticks = element_blank(),
         axis.title = element_blank(),
         plot.title = element_text(size = 20),
-        legend.title = element_text(size = 15))+ 
+        legend.title = element_text(size = 15),
+        legend.text = element_text(size = 12)) + 
   scale_fill_gradient(
     low = "lightyellow",
     high = "saddlebrown",
