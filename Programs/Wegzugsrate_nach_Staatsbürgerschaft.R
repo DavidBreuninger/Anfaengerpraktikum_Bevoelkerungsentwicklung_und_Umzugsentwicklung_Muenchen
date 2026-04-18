@@ -11,7 +11,6 @@ Mobilität_sn <- Mobilität_clean %>%
     sn = case_when(
       Raumbezug == "Stadt München" ~ 26,
       TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
-
 plotdatal <- Mobilität_sn %>%
   mutate(Raumbezug = case_when(
     sn == 1 ~ "Altstadt",
@@ -41,25 +40,31 @@ plotdatal <- Mobilität_sn %>%
     sn == 25 ~ "Laim",
     TRUE ~ Raumbezug))
 
-plotdatali <- plotdatal %>%
-  mutate(Zuzugsrate = (Zuzügegesamt / Basiswert.5) * 100,
-         Wegzugsrate = (Wegzügegesamt / Basiswert.5) * 100) %>%
-  filter(Ausprägung == "insgesamt")
+plotdatals <- plotdatal %>%
+  group_by(Raumbezug, Jahr) %>%
+  mutate(gesamt_bev = Basiswert.5[Ausprägung == "insgesamt"][1]) %>%
+  ungroup() %>%
+  filter(Ausprägung %in% c("deutsch", "nichtdeutsch")) %>%
+  mutate(Zuzugsrate = (Zuzügegesamt / gesamt_bev) * 100,
+         Wegzugsrate = (Wegzügegesamt / gesamt_bev) * 100)
 
-#lineplot Zuzugsrate total
-g13 <- ggplot(plotdatali, aes(x = Jahr, y = Zuzugsrate)) +
-  geom_line(color = "black") +
+#lineplot wegzugsrate by citizenship
+g15 <- ggplot(plotdatals, aes(x = Jahr, y = Wegzugsrate, color = Ausprägung)) +
+  geom_line() +
   geom_point() +
   facet_wrap(~ Raumbezug) +
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         strip.text = element_text(size = 10),
         panel.spacing.x = unit(1.2, "lines"),
-        plot.title = element_text(size = 18, hjust = 0.5),
         panel.border = element_rect(color = "grey", fill = NA, linewidth = 0.5),
+        plot.title = element_text(size = 18, hjust = 0.5),
         strip.background = element_rect(color = "grey", fill = "grey90")) +
-  labs(y = "Zuzugsrate")
+  scale_color_manual(values = c(deutsch = "#E69F00",
+                                nichtdeutsch = "#0072B2")) +
+  labs(y = "Wegzugsrate",
+       color = "Ausprägung")
 
-g13
+g15
 
-ggsave("Results/g13.jpg", plot = g13,width = 3, height = 3)
+ggsave("Results/g15.jpg", plot = g15,width = 3, height = 3)
