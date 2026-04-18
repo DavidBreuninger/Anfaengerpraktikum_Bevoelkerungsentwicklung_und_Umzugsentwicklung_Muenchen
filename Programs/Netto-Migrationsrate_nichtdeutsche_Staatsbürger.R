@@ -48,4 +48,4 @@ g10 <- ggplot(plotdataNettoratend) +
 
 g10
 
-ggsave("Results/nettoumzugsrate_nichtdeutsch.jpg", plot = g10, width = 3, height = 3)
+ggsave("Results/nettoumzugsrate_nichtdeutsch.jpg", plot = g10, width = 6, height = 6)

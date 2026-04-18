@@ -48,4 +48,4 @@ g11 <- ggplot(plotdataNettorated) +
 
 g11
 
-ggsave("Results/nettoumzugsrate_deutsch.jpg", plot = g11, width = 3, height = 3)
+ggsave("Results/nettoumzugsrate_deutsch.jpg", plot = g11, width = 6, height = 6)
