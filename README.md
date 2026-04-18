@@ -8,7 +8,7 @@ We use R version 4.5.3 for this project. Some packages may need the latest R ver
 
 To start, please source the "setup.R" file, this file will install and load all needed packages.
 
-After that you can run the individual r files.
+After that you can run the individual r files under Programs directory.
 
 ## Directory Structure
 
