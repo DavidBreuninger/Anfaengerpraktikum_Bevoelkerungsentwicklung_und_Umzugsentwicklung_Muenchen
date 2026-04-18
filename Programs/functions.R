@@ -21,8 +21,8 @@ remove_Auspraegung <- function(df) {
 }
 
 # vectors of distinct district names from column Raumbezug, district numbers removed
-Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
-Bezirke <- Mobilitaet_thin %>%
+Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
+Bezirke <- Mobilitaet %>%
   select(Raumbezug) %>% 
   distinct() %>% 
   filter(Raumbezug != "Stadt München") %>%
@@ -33,7 +33,7 @@ Bezirke <- Mobilitaet_thin %>%
 
 # vector for setting column names
 jahrbuch_spaltennamen <- c("Anfangsbezirk_Nr", Bezirke)
-spaltennamen_ID <- as.character(c("Anfangsbezirk_Nr",1:25))
+spaltennamen_ID <- as.character(c("Anfangsbezirk_Nr", 1:25))
 
 # get data frame with number of people, who moved outside of Munich
 wegzug_außerstadt <- Mobilitaet_thin %>%

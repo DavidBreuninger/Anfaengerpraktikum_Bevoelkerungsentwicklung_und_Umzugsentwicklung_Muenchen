@@ -1,7 +1,10 @@
 library("sf")
+#read data
+vablock_stadtbezirk <- read.csv("Data/vablock_stadtbezirk.csv")
+Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
 
 #geo data transformed
-bezirke <- bezirke %>%
+bezirke <- vablock_stadtbezirk %>%
   mutate(geometry = st_as_sfc(shape)) %>%
   st_as_sf()
 st_crs(bezirke) <- 25832
@@ -22,22 +25,24 @@ plotdataBevölkerungsdichte <- plotdatabevölkerung %>%
   mutate(Bevölkerungsdichte = Basiswert.1 / Basiswert.2) %>%
   filter(Jahr == 2024, Ausprägung == "insgesamt")
 
-g8 <- ggplot(plotdataBevölkerungsdichte) +
+density2024 <- ggplot(plotdataBevölkerungsdichte) +
   geom_sf(aes(fill = Bevölkerungsdichte)) +
   theme_minimal() +
-  labs(title = "Bevölkerungsdichte",
+  labs(title = "Bevölkerungsdichte 2024",
        fill = "Dichte pro km²") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank(),
-        plot.title = element_text(size = 20, hjust = 0.5))+ 
+        plot.title = element_text(size = 20),
+        legend.title = element_text(size = 15),
+        legend.text = element_text(size = 12)) + 
   scale_fill_gradient(
-    low = "lightyellow",
-    high = "saddlebrown",
+    low = "#EFEDF5",
+    high = "#54278F",
     limits = c(0, 16000),
     breaks = c(0, 4000, 8000, 12000, 16000)
   )
 
-g8
+density2024
 
-ggsave("Results/g8.jpg", plot = g8,width = 3, height = 3)
+ggsave("Results/density2024.jpg", plot = density2024, width = 8, height = 5)

@@ -28,4 +28,4 @@ plot_wegzug_Bezirke <- ggplot(wegzug_Bezirksgruppen_long,
   theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 12), title = element_text(size = 12))
 
 # save plots
-ggsave("Results/plot_wegzug_Bezirke.jpg", plot = plot_wegzug_Bezirke, width = 12, height = 8)
+ggsave("Results/Wegzug_Anteil_ Bezirke_gruppiert.jpg", plot = plot_wegzug_Bezirke, width = 12, height = 8)

@@ -19,4 +19,4 @@ plot_wegzug_Stadt <- ggplot(wegzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = 
   theme(axis.text.x = element_text(size = 7), legend.text = element_text(size = 12), title = element_text(size = 12))
 
 # save plots
-ggsave("Results/plot_wegzug_Stadt.jpg", plot = plot_wegzug_Stadt, width = 12, height = 8)
+ggsave("Results/wegzug_Anteil_innen_außen.jpg", plot = plot_wegzug_Stadt, width = 12, height = 8)
