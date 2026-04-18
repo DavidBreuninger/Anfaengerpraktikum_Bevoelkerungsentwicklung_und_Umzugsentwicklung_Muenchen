@@ -36,12 +36,12 @@ density2024 <- ggplot(plotdataBevölkerungsdichte) +
         plot.title = element_text(size = 20),
         legend.title = element_text(size = 15)) + 
   scale_fill_gradient(
-    low = "lightyellow",
-    high = "saddlebrown",
+    low = "#EFEDF5",
+    high = "#54278F",
     limits = c(0, 16000),
     breaks = c(0, 4000, 8000, 12000, 16000)
   )
 
 density2024
 
-ggsave("Results/density2024.jpg", plot = g8, width = 3, height = 3)
+ggsave("Results/density2024.jpg", plot = density2024, width = 3, height = 3)
