@@ -1,3 +1,5 @@
+## this file contains the code for the stacked percentage barplot on slide 23
+
 # read data
 wegzug_stadt <- read.csv("Clean_Data/umzug_innen_außen.csv")
 

@@ -1,3 +1,5 @@
+## this file contains the code for the stacked percentage barplot on slide 24
+
 library(tidyverse)
 library(ggplot2)
 library(data.table)
