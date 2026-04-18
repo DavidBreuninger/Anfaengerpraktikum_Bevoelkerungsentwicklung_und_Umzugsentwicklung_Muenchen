@@ -14,13 +14,12 @@ plot1 <- mnew%>%
 
 p1<-ggplot(plot1, aes(x = Jahr, y = Basiswert.5, color = Ausprägung)) + geom_point() + 
   geom_line() +labs(y = "mittlere Wohnbevölkerung in Millionen", 
-                    title = "Entwicklung mittlerer Wohnbevölkerung",
                     color="Staatsbürgerschaft")+
   scale_colour_manual(values = c(deutsch = "#E69F00",
                                  nichtdeutsch = "#0072B2",
                                  insgesamt = "black"))+
   scale_y_continuous(labels = label_number(scale = 1e-6))+ #Population in millions
-  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) #Center the title
+  theme_bw() 
 p1
 
 #save plot

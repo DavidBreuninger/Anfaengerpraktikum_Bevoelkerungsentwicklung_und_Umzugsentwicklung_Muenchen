@@ -20,13 +20,11 @@ p3<-mnew%>%
   geom_point(size=0.6)+ geom_line() +
   facet_wrap(~Raumbezug) +
   labs(y= "Anteil an der Bevölkerung",
-       title = "Entwicklung der Staatsbürgerschaft in den Bezirken",
        color = "Staatsbürgerschaft")+
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2"))+
   scale_y_continuous(limits = c(0,1))+theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5), #Center the title
-        axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
         strip.text = element_text(size = 7,face="bold"), #bolded facet title
         panel.spacing.x = unit(1.2, "lines")) #Controlling the horizontal spacing of facet Grafik
 

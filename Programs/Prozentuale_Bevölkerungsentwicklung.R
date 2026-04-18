@@ -26,10 +26,8 @@ p2 <- mnew_index %>% filter(Raumbezug != "Stadt München",Ausprägung == "insges
   ggplot(aes(x = Jahr, y = indexb1)) +
   geom_point(color = "black",size=1) +
   geom_line(color = "black")+ facet_wrap(~ Raumbezug) + 
-  labs(y = "Bevölkerungsindex (2000=100)",
-       title = "Prozentuale Bevölkerungsentwicklung nach Stadtbezirken")+theme_bw()+
-  theme(plot.title = element_text(hjust = 0.5), #Center the title
-        axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
+  labs(y = "Bevölkerungsindex (2000=100)")+theme_bw()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), #Rotate x-axis by 45°
         strip.text = element_text(size = 7,face="bold"), #bolded facet title
         panel.spacing.x = unit(1.2, "lines")) #Controlling the horizontal spacing of facet Grafik
 p2
