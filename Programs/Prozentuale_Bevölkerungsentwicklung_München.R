@@ -1,3 +1,4 @@
+##This file contains the code for the lineplot on slide 10.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
@@ -5,7 +6,6 @@ library("tidyr")
 library("dplyr")
 library("scales")
 mnew <- read.csv("Clean_Data/mnew.csv")
-bnew <- read.csv("Clean_Data/bnew.csv")
 
 #This plot shows us the population growth rate of München compared to 2000.
 #Calculate the index : Current value / 2000 value × 100

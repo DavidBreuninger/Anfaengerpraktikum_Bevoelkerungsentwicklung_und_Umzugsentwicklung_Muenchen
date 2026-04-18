@@ -1,3 +1,4 @@
+##This file contains the code for the lineplot on slide 8.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
@@ -5,7 +6,6 @@ library("tidyr")
 library("dplyr")
 library("scales")
 mnew <- read.csv("Clean_Data/mnew.csv")
-bnew <- read.csv("Clean_Data/bnew.csv")
 
 #This plot shows us the population percentages of German and non-German citizens in München  from 2000 to 2024.
 #Calculate the proportion of German and non-German citizens in the total population for each district and each year.

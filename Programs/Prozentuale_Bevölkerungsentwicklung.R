@@ -1,3 +1,4 @@
+##This file contains the code for the lineplot on slide 11.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
@@ -5,7 +6,6 @@ library("tidyr")
 library("dplyr")
 library("scales")
 mnew <- read.csv("Clean_Data/mnew.csv")
-bnew <- read.csv("Clean_Data/bnew.csv")
 
 #This plot shows us the population growth rate of each district compared to 2000.
 #Make the population into index (2000=100) and then sort the districts by the latest year.

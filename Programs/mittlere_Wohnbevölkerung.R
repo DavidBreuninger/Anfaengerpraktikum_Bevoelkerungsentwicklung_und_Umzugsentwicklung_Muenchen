@@ -1,3 +1,4 @@
+##This file contains the code for the lineplot on slide 7.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
@@ -5,7 +6,6 @@ library("tidyr")
 library("dplyr")
 library("scales")
 mnew <- read.csv("Clean_Data/mnew.csv")
-bnew <- read.csv("Clean_Data/bnew.csv")
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
 #choose the data only from München

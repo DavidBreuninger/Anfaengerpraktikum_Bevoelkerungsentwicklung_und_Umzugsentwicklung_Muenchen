@@ -1,3 +1,4 @@
+##This file contains the code for the lineplot on slide 13.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
@@ -5,7 +6,6 @@ library("tidyr")
 library("dplyr")
 library("scales")
 mnew <- read.csv("Clean_Data/mnew.csv")
-bnew <- read.csv("Clean_Data/bnew.csv")
 
 #This plot shows us the trend of  population inflow into München from 2000 to 2024.
 #inflow = internal migration in + external migration in
