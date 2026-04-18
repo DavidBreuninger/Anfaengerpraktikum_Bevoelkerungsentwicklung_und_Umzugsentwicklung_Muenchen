@@ -13,10 +13,10 @@ remove_NAs <- function(df) {
 remove_Auspraegung <- function(df) {
   require(dplyr)
   df <- df %>% 
-    mutate_all(~ gsub("\\(deutsch\\)","",.)) %>%
-    mutate_all(~ gsub("\\(nichtdeutsch\\)","",.)) %>%
-    mutate_all(~ gsub("\\(insgesamt\\)","",.)) %>%
-    mutate_all(~ gsub("\\(auch innerhalb der räumlichen Einheit\\)","",.)) %>%
+    mutate_all(~ gsub(" \\(deutsch\\)","",.)) %>%
+    mutate_all(~ gsub(" \\(nichtdeutsch\\)","",.)) %>%
+    mutate_all(~ gsub(" \\(insgesamt\\)","",.)) %>%
+    mutate_all(~ gsub(" \\(auch innerhalb der räumlichen Einheit\\)","",.)) %>%
   return(df)
 }
 
@@ -36,12 +36,12 @@ jahrbuch_spaltennamen <- c("Anfangsbezirk_Nr", Bezirke)
 spaltennamen_ID <- as.character(c("Anfangsbezirk_Nr", 1:25))
 
 # get data frame with number of people, who moved outside of Munich
-wegzug_außerstadt <- Mobilitaet_thin %>%
+wegzug_außerstadt <- Mobilitaet %>%
   filter(Ausprägung == "insgesamt") %>%
-  select(Raumbezug, Jahr, außerstädtisch.Weggezogene.) %>% 
+  select(Raumbezug, Jahr, Basiswert.3) %>% 
   distinct() %>% 
   filter(Raumbezug != "Stadt München") %>%
-  rename(außerstaedtisch = außerstädtisch.Weggezogene.)
+  rename(außerstaedtisch = Basiswert.3)
 
 # FUNC3: colnames_to_ID, sets the colnames to district IDs, filters relevant rows
 colnames_to_ID <- function(df) {
