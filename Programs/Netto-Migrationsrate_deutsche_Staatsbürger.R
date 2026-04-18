@@ -1,5 +1,6 @@
 library("sf")
 bezirke <- read.csv("Data/vablock_stadtbezirk.csv")
+Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
 
 #munich geo data adjusted
 bezirke <- bezirke %>%
@@ -47,4 +48,4 @@ g11 <- ggplot(plotdataNettorated) +
 
 g11
 
-ggsave("Results/g11.jpg", plot = g11,width = 3, height = 3)
+ggsave("Results/nettoumzugsrate_deutsch.jpg", plot = g11, width = 3, height = 3)

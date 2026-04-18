@@ -37,11 +37,12 @@ g9 <- ggplot(plotdataNettorate) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(fill = "Rate ((Zuzüge - Wegzüge) / Bevölkerung + 100)") +
+  labs(fill = "Rate",
+       title = "mit Rate = ((Zuzüge - Wegzüge) / Bevölkerung + 100)") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
 g9 
 
-ggsave("Results/g9.jpg", plot = g9,width = 3, height = 3)
+ggsave("Results/nettoumzugsrate_gesamt.jpg", plot = g9, width = 3, height = 3)
