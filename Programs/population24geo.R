@@ -1,7 +1,10 @@
 library("sf")
+#read data
+vablock_stadtbezirk <- read.csv("Data/vablock_stadtbezirk.csv")
+Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
 
 #geo data transformed
-bezirke <- bezirke %>%
+bezirke <- vablock_stadtbezirk %>%
   mutate(geometry = st_as_sfc(shape)) %>%
   st_as_sf()
 st_crs(bezirke) <- 25832
@@ -20,7 +23,7 @@ plotdatabevölkerung <- bezirke %>%
 plotdataBevölkerungsentwicklung <- plotdatabevölkerung %>%
   filter(Jahr == 2024)
 
-g7 <- ggplot(plotdataBevölkerungsentwicklung) +
+population2024 <- ggplot(plotdataBevölkerungsentwicklung) +
   geom_sf(aes(fill = Basiswert.1)) +
   theme_minimal() +
   labs(title = "Einwohneranzahl 2024",
@@ -37,6 +40,6 @@ g7 <- ggplot(plotdataBevölkerungsentwicklung) +
     breaks = c(0, 20000, 40000,  60000, 80000, 100000, 125000)
   )
 
-g7
+population2024
 
-ggsave("Results/g7.jpg", plot = g7,width = 3, height = 3)
+ggsave("Results/population2024.jpg", plot = g7, width = 3, height = 3)
