@@ -10,7 +10,6 @@ source("Programs/functions.R")
 Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
 Bevoelkerungsdichte <- read.csv("Data/indikat2510_bevoelkerung_bevoelkerungsdichte_28_10_25.csv")
 mnew <- Mobilitaet 
-bnew <- Bevoelkerungsdichte
 
 # remove columns or rows consisting of only NAs
 Mobilitaet <- remove_NAs(Mobilitaet)
@@ -328,15 +327,9 @@ umzug_Bezirksgruppen <- umzug_all %>%
 write.csv(umzug_innen_außen, "Clean_Data/umzug_innen_außen.csv", row.names = FALSE)
 write.csv(umzug_Bezirksgruppen, "Clean_Data/umzug_Bezirksgruppen.csv", row.names = FALSE)
 
-# clean the data from mnew , bnew
+# clean the data from mnew 
 # Add a new column called sn to store the district number
 # Give Stadt München number 26
-bnew <- bnew%>%
-  mutate(
-    sn = case_when(
-      Raumbezug == "Stadt München" ~ 26,
-      TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
-
 mnew <- mnew%>%
   mutate(
     sn = case_when(
@@ -344,35 +337,6 @@ mnew <- mnew%>%
       TRUE ~ as.numeric(str_extract(Raumbezug, "^\\d+"))))
 
 # remove the number in Raumbezug
-bnew <-bnew%>% 
-  mutate(Raumbezug = case_when(
-    sn == 1 ~ "Altstadt",
-    sn == 2 ~ "Ludwigsvorstadt",
-    sn == 3 ~ "Maxvorstadt",
-    sn == 4 ~ "Schwabing-West",
-    sn == 5 ~ "Haidhausen",
-    sn == 6 ~ "Sendling",
-    sn == 7 ~ "Sendling-Westpark",
-    sn == 8 ~ "Schwanthalerhöhe",
-    sn == 9 ~ "Neuhausen",
-    sn == 10 ~ "Moosach",
-    sn == 11 ~ "Milbertshofen",
-    sn == 12 ~ "Schwabing",
-    sn == 13 ~ "Bogenhausen",
-    sn == 14 ~ "Berg am Laim",
-    sn == 15 ~ "Trudering",
-    sn == 16 ~ "Ramersdorf",
-    sn == 17 ~ "Obergiesing",
-    sn == 18 ~ "Untergiesing",
-    sn == 19 ~ "Thalkirchen",
-    sn == 20 ~ "Hadern",
-    sn == 21 ~ "Pasing",
-    sn == 22 ~ "Aubing",
-    sn == 23 ~ "Allach",
-    sn == 24 ~ "Feldmoching",
-    sn == 25 ~ "Laim",
-    TRUE ~ Raumbezug))
-
 mnew <- mnew%>%
   mutate(Raumbezug = case_when(
     sn == 1 ~ "Altstadt",
@@ -404,4 +368,4 @@ mnew <- mnew%>%
 
 # save
 write_csv(mnew, "Clean_Data/mnew.csv")
-write_csv(bnew, "Clean_Data/bnew.csv")
+
