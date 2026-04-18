@@ -1,3 +1,5 @@
+## this file contains the code for the line plot on slide 18
+
 #read data 
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
@@ -15,7 +17,6 @@ g12 <- ggplot(Wegzugsrate_gesamt, aes(x = Jahr, y = Wegzugsrate)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         strip.text = element_text(size = 10),
         panel.spacing.x = unit(1.2, "lines"),
-        plot.title = element_text(size = 18, hjust = 0.5),
         panel.border = element_rect(color = "grey", fill = NA, linewidth = 0.5),
         strip.background = element_rect(color = "grey", fill = "grey90")) +
   labs(y = "Wegzugsrate in Prozent")

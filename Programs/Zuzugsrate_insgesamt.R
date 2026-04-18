@@ -1,3 +1,5 @@
+## this file contains the code for the line plot on slide 16
+
 #read data 
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
@@ -11,11 +13,10 @@ g13 <- ggplot(Zuzugsrate_gesamt, aes(x = Jahr, y = Zuzugsrate)) +
   geom_line(color = "black") +
   geom_point() +
   facet_wrap(~ Raumbezug) +
-  theme_minimal()+
+  theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         strip.text = element_text(size = 10),
         panel.spacing.x = unit(1.2, "lines"),
-        plot.title = element_text(size = 18, hjust = 0.5),
         panel.border = element_rect(color = "grey", fill = NA, linewidth = 0.5),
         strip.background = element_rect(color = "grey", fill = "grey90")) +
   labs(y = "Zuzugsrate in Prozent")
