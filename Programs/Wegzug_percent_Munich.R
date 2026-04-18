@@ -17,4 +17,4 @@ plot_muenchen_prozent <- ggplot(Wegzug_gesamt, aes(x = Jahr,  y = Prozent)) +
   theme(title = element_text(size = 12))
 
 # save plots
-ggsave("Results/plot_muenchen_prozent.jpg", plot = plot_muenchen_prozent, width = 12, height = 8)
+ggsave("Results/wegzug_prozent_gesamt.jpg", plot = plot_muenchen_prozent, width = 12, height = 8)

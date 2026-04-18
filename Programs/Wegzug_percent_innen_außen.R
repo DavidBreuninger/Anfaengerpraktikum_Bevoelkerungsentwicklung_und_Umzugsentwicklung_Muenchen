@@ -28,4 +28,4 @@ plot_stadt_prozent <- ggplot(Mobilitaet_muenchen_weg,
   theme(legend.text = element_text(size = 12), title = element_text(size = 12))
 
 #save plot
-ggsave("Results/plot_stadt_prozent.jpg", plot = plot_stadt_prozent, width = 12, height = 8)
+ggsave("Results/wegzug_prozent_innen_außen.jpg", plot = plot_stadt_prozent, width = 12, height = 8)
