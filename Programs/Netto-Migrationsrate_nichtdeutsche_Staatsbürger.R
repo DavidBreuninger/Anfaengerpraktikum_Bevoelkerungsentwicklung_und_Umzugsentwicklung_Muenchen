@@ -40,8 +40,8 @@ g10 <- ggplot(plotdataNettoratend) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Nicht-Deutsche Staatsbürger",
-       fill = "Rate") +
+  labs(
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
