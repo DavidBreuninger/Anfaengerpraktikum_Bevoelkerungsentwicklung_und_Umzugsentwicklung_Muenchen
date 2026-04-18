@@ -1,5 +1,6 @@
 library("sf")
 bezirke <- read.csv("Data/vablock_stadtbezirk.csv")
+Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
 
 #munich geo data adjusted
 bezirke <- bezirke %>%
@@ -31,16 +32,16 @@ g9 <- ggplot(plotdataNettorate) +
     mid = "white",
     high = "blue",
     midpoint = 0,
-    limits = c(-7, 7),
-    breaks = c(-7, -4, -2, 0, 2, 4, 7)
+    limits = c(-6, 6),
+    breaks = c(-6, -4, -2, 0, 2, 4, 6)
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(fill = "Netto-Migrationsrate") +
+  labs(fill = "Rate ((Zuzüge - Wegzüge) / Bevölkerung + 100)") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
-g9
+g9 
 
 ggsave("Results/g9.jpg", plot = g9,width = 3, height = 3)

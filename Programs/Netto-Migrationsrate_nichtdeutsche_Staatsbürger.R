@@ -1,5 +1,6 @@
 library("sf")
 bezirke <- read.csv("Data/vablock_stadtbezirk.csv")
+Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
 
 #munich geo data adjusted
 bezirke <- bezirke %>%
@@ -40,11 +41,11 @@ g10 <- ggplot(plotdataNettoratend) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
   labs(title = "Nicht-Deutsche Staatsbürger",
-       fill = "Rate") +
+       fill = "Rate ((Zuzüge - Wegzüge) / Bevölkerung + 100)") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
 
 g10
 
-ggsave("Results/g10.jpg", plot = g10,width = 3, height = 3)
+ggsave("Results/nettoumzugsrate_nichtdeutsch.jpg", plot = g10, width = 3, height = 3)
