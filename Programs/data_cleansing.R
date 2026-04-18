@@ -4,6 +4,7 @@ library(stringr)
 library(checkmate)
 library(readxl)
 library(data.table)
+library(ggplot2)
 source("Programs/functions.R")
 
 # read csv files
