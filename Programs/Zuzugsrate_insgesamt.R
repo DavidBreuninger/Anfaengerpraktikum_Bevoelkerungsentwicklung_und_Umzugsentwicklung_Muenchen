@@ -1,6 +1,7 @@
 #read data 
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
+# add column "Wegzugsrate",  percentage of people moving to disrict
 Zuzugsrate_gesamt <- Mobilitaet_thin %>%
   filter(Ausprägung == "insgesamt" & Raumbezug != "Stadt München") %>%
   mutate(Zuzugsrate = (Gesamtzuzug / mittlere_Hauptwohnsitzbevölkerung) * 100)
@@ -17,7 +18,7 @@ g13 <- ggplot(Zuzugsrate_gesamt, aes(x = Jahr, y = Zuzugsrate)) +
         plot.title = element_text(size = 18, hjust = 0.5),
         panel.border = element_rect(color = "grey", fill = NA, linewidth = 0.5),
         strip.background = element_rect(color = "grey", fill = "grey90")) +
-  labs(y = "Zuzugsrate")
+  labs(y = "Zuzugsrate in Prozent")
 
 g13
 
