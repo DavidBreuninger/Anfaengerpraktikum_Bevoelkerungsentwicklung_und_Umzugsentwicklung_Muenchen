@@ -20,6 +20,7 @@ p6<-mnew%>%
                                 nichtdeutsch = "#0072B2",
                                 insgesamt = "black"))+
   scale_y_continuous(labels = label_number(scale = 1e-3)) + #Population in thousands
+  scale_x_continuous(expand = expansion(mult = c(0.05,0.06)))+ #right of x axis widens by 6% , left widens by 5%
   theme_bw()+ theme(plot.title = element_text(hjust = 0.5), #Center the title
                     legend.position = "none",     #Remove Legend
                     strip.text = element_blank()) #Remove facet title
@@ -27,3 +28,4 @@ p6
 
 #save plot
 ggsave("Results/p_Wegzug.jpg", plot = p6,width = 6, height = 3)
+
