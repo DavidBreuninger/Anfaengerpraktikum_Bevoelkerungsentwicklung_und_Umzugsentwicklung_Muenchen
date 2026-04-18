@@ -48,7 +48,7 @@ plotdatali <- plotdatal %>%
 
 #lineplot Wegzugsrate total
 g12 <- ggplot(plotdatali, aes(x = Jahr, y = Wegzugsrate)) +
-  geom_line(color = "black", size = 1) +
+  geom_line(color = "black") +
   geom_point() +
   facet_wrap(~ Raumbezug) +
   theme_minimal()+
