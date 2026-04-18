@@ -31,4 +31,4 @@ g14 <- ggplot(Zuzugsrate_split, aes(x = Jahr, y = Zuzugsrate, color = Ausprägun
 
 g14
 #save plot
-ggsave("Results/Zuzugsrate_Staatsbürgerschaft.jpg", plot = g14, width = 10, height = 8)
+ggsave("Results/Zuzugsrate_Staatsbürgerschaft.jpg", plot = g14, width = 12, height = 6)

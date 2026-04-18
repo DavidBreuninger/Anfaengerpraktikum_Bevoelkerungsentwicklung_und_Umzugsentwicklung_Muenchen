@@ -31,4 +31,4 @@ g15 <- ggplot(Wegzugsrate_split, aes(x = Jahr, y = Wegzugsrate, color = Auspräg
 
 g15
 # save plot
-ggsave("Results/Wegzugsrate_staatbürgerschaft.jpg", plot = g15, width = 10, height = 8)
+ggsave("Results/Wegzugsrate_staatbürgerschaft.jpg", plot = g15, width = 12, height = 6)

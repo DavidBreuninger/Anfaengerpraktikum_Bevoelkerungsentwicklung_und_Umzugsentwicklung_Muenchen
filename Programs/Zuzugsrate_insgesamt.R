@@ -23,4 +23,4 @@ g13 <- ggplot(Zuzugsrate_gesamt, aes(x = Jahr, y = Zuzugsrate)) +
 
 g13
 
-ggsave("Results/Zuzugsrate_gesamt.jpg", plot = g13,width = 10, height = 8)
+ggsave("Results/Zuzugsrate_gesamt.jpg", plot = g13, width = 12, height = 6)

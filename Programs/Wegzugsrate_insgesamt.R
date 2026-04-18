@@ -23,4 +23,4 @@ g12 <- ggplot(Wegzugsrate_gesamt, aes(x = Jahr, y = Wegzugsrate)) +
 
 g12
 
-ggsave("Results/Wegzugsrate_insgesamt.jpg", plot = g12, width = 10, height = 8)
+ggsave("Results/Wegzugsrate_insgesamt.jpg", plot = g12, width = 12, height = 6)
