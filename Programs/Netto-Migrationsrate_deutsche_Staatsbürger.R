@@ -40,8 +40,8 @@ g11 <- ggplot(plotdataNettorated) +
   ) +
   facet_wrap(~ Jahr) +
   theme_minimal() +
-  labs(title = "Deutsche Staatsbürger",
-       fill = "Rate") +
+  labs(
+       fill = "Prozent") +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
         axis.title = element_blank())
