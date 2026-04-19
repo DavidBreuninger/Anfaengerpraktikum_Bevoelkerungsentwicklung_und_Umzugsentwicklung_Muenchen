@@ -1,5 +1,8 @@
 ## This file will install and load all the necessary packages
 
+# setting working directory (copied from Example "Abgabe KoCo19 Kinder")
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
 # vector of needed packages
 packages <- c("ggplot2", "readr", "sf", "tidyverse", "scales", "dplyr", 
               "tidyr", "data.table", "checkmate", "readxl")
