@@ -1,6 +1,8 @@
-library("sf")
+## code for plot on slide 14
+
+# read data
 bezirke <- read.csv("Data/vablock_stadtbezirk.csv")
-Mobilitaet <- read.csv("Data/indikat2510_bevoelkerung_mobilitaetsziffer_28_10_25.csv")
+Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #munich geo data adjusted
 bezirke <- bezirke %>%
@@ -9,22 +11,16 @@ bezirke <- bezirke %>%
 st_crs(bezirke) <- 25832
 bezirke <- st_transform(bezirke, 4326)
 
-#mobility data adjusted
-Mobilität_clean <- Mobilitaet %>%
-  mutate(bezirk_num = as.numeric(sub(" .*", "", Raumbezug))) %>%
-  mutate(Zuzügegesamt = Basiswert.1 + Basiswert.2) %>%
-  mutate(Wegzügegesamt = Basiswert.3 + Basiswert.4)%>%
-  filter(grepl("^[0-9]{2} ", Raumbezug))
-
 #perform join
 plotdata <- bezirke %>%
-  left_join(Mobilität_clean, by = c("sb_nummer" = "bezirk_num"))
+  left_join(Mobilitaet_thin, by = c("sb_nummer" = "BezirksID"), relationship = "many-to-many")
 
-#net migration rate total population slide 14
+#net migration rate for total population 
 plotdataNettorate <- plotdata %>%
   filter(Ausprägung == "insgesamt") %>%
-  mutate(netto_rate = (Zuzügegesamt - Wegzügegesamt) / Basiswert.5 * 100)
+  mutate(netto_rate = (Gesamtzuzug - Gesamtwegzug) / mittlere_Hauptwohnsitzbevölkerung * 100)
 
+#plot net migration rate for total population over the years
 g9 <- ggplot(plotdataNettorate) +
   geom_sf(aes(fill = netto_rate)) +
   scale_fill_gradient2(
