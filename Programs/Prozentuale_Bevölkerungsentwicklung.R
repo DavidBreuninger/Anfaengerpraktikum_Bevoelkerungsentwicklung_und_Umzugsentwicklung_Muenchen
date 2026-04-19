@@ -1,11 +1,6 @@
 ##This file contains the code for the line plot on slide 11.
-#Prepare for Data
-library("ggplot2")
-library("tidyverse")
-library("tidyr")
-library("dplyr")
-library("scales")
 
+#read data
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the population growth rate of each district compared to 2000.

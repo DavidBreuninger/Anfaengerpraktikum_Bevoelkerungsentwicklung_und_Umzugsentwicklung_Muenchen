@@ -1,10 +1,6 @@
 ##This file contains the code for the line plot on slide 7.
-#Prepare for Data
-library("ggplot2")
-library("tidyverse")
-library("tidyr")
-library("dplyr")
-library("scales")
+
+#read data
 Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
