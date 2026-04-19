@@ -27,7 +27,7 @@ g14 <- ggplot(Zuzugsrate_split, aes(x = Jahr, y = Zuzugsrate, color = Ausprägun
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2")) +
   labs(y = "Zuzugsrate",
-       color = "Ausprägung")
+       color = "Staatsbürgerschaft")
 
 g14
 #save plot

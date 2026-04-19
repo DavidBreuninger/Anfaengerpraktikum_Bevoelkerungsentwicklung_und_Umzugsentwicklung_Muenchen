@@ -27,7 +27,7 @@ g15 <- ggplot(Wegzugsrate_split, aes(x = Jahr, y = Wegzugsrate, color = Auspräg
   scale_color_manual(values = c(deutsch = "#E69F00",
                                 nichtdeutsch = "#0072B2")) +
   labs(y = "Wegzugsrate",
-       color = "Ausprägung")
+       color = "Staatsbürgerschaft")
 
 g15
 # save plot
