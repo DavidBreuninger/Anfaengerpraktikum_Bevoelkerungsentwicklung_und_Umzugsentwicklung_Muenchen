@@ -1,21 +1,22 @@
-##This file contains the code for the lineplot on slide 13.
+##This file contains the code for the line plot on slide 13.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
 library("tidyr")
 library("dplyr")
 library("scales")
-mnew <- read.csv("Clean_Data/mnew.csv")
+
+Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the trend of net population inflow into München from 2000 to 2024.
 #Calculate net population inflow(ar) ,
-#ar = external migration in - external migration out + internal migration in - internal migration out
-mnew <- mnew%>%
-  mutate(ar = Basiswert.1 - Basiswert.3 + Basiswert.2 -Basiswert.4)
+#Netto = (external migration in + internal migration in) - (external migration out + internal migration out) 
+mnew <- Mobilitaet_thin %>%
+  mutate(Netto = Gesamtzuzug - Gesamtwegzug)
 
-p4 <- mnew%>%
-  filter(sn == 26)%>%
-  ggplot( aes(x = Jahr, y = ar, color = Ausprägung)) + geom_point()+ 
+p4 <- mnew %>%
+  filter(Raumbezug == "Stadt München")%>%
+  ggplot( aes(x = Jahr, y = Netto, color = Ausprägung)) + geom_point()+ 
   geom_line() + labs(y = "in Tausend",
                      title = "Nettoumzug (Zuzug – Wegzug) in München",
                      color = "Staatsbürgerschaft")+

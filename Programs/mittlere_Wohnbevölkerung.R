@@ -1,18 +1,18 @@
-##This file contains the code for the lineplot on slide 7.
+##This file contains the code for the line plot on slide 7.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
 library("tidyr")
 library("dplyr")
 library("scales")
-mnew <- read.csv("Clean_Data/mnew.csv")
+Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the changes in München average resident population from 2000 to 2024.
 #choose the data only from München
-plot1 <- mnew%>%
+Mobil_muenchen <- Mobilitaet_thin %>%
   filter(Raumbezug == "Stadt München")
 
-p1<-ggplot(plot1, aes(x = Jahr, y = Basiswert.5, color = Ausprägung)) + geom_point() + 
+p1 <- ggplot(Mobil_muenchen, aes(x = Jahr, y = mittlere_Hauptwohnsitzbevölkerung, color = Ausprägung)) + geom_point() + 
   geom_line() +labs(y = "mittlere Wohnbevölkerung in Millionen", 
                     color="Staatsbürgerschaft")+
   scale_colour_manual(values = c(deutsch = "#E69F00",
