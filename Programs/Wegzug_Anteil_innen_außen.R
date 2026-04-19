@@ -11,7 +11,6 @@ wegzug_stadt_long <- wegzug_stadt %>%
                values_to = "Anzahl")
 
 # percent stacked barplot for "Wegzüge in Stadtbezirken" 
-# plot for slide 
 plot_wegzug_Stadt <- ggplot(wegzug_stadt_long, aes(x = Jahr, y = Anzahl, fill = Wegzug)) + 
   geom_bar(position = "fill", stat = "identity",  color = "white") +
   facet_wrap(~ Anfangsbezirk) +
