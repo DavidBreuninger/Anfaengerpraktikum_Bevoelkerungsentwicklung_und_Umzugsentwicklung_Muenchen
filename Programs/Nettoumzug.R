@@ -15,7 +15,7 @@ mnew <- Mobilitaet_thin %>%
   mutate(Netto = Gesamtzuzug - Gesamtwegzug)
 
 p4 <- mnew %>%
-  filter(Raumbezug == "Stadt München")%>%
+  filter(Raumbezug == "Stadt München") %>%
   ggplot( aes(x = Jahr, y = Netto, color = Ausprägung)) + geom_point()+ 
   geom_line() + labs(y = "in Tausend",
                      title = "Nettoumzug (Zuzug – Wegzug) in München",
