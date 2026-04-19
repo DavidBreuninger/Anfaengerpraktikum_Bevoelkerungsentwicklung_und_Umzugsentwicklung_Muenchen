@@ -1,20 +1,22 @@
-##This file contains the code for the lineplot on slide 9.
+##This file contains the code for the line plot on slide 9.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
 library("tidyr")
 library("dplyr")
 library("scales")
-mnew <- read.csv("Clean_Data/mnew.csv")
+
+Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the population percentages of German and non-German citizens in different district from 2000 to 2024.
 #Calculate the proportion of German and non-German citizens in the total population for each district and each year.
 #German + non-German = 1 in each year
-mnew <- mnew %>%
+mnew <- Mobilitaet_thin %>%
   group_by(Jahr, Raumbezug) %>% 
-  mutate(rb5 = Basiswert.5 / Basiswert.5[Ausprägung == "insgesamt"])
+  mutate(rb5 = mittlere_Hauptwohnsitzbevölkerung / mittlere_Hauptwohnsitzbevölkerung[Ausprägung == "insgesamt"]) %>%
+  ungroup()
 
-p3<-mnew%>%
+p3 <- mnew %>%
   filter(Ausprägung != "insgesamt" , Raumbezug != "Stadt München")%>%
   ggplot(aes(x = Jahr, y = rb5, color = Ausprägung)) +
   geom_point(size=0.6)+ geom_line() +

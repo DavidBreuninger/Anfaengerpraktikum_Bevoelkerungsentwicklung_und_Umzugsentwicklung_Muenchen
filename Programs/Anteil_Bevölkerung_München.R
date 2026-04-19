@@ -1,21 +1,23 @@
-##This file contains the code for the lineplot on slide 8.
+##This file contains the code for the line plot on slide 8.
 #Prepare for Data
 library("ggplot2")
 library("tidyverse")
 library("tidyr")
 library("dplyr")
 library("scales")
-mnew <- read.csv("Clean_Data/mnew.csv")
+
+Mobilitaet_thin <- read.csv("Clean_Data/Mobilitaet_thin.csv")
 
 #This plot shows us the population percentages of German and non-German citizens in München  from 2000 to 2024.
 #Calculate the proportion of German and non-German citizens in the total population for each district and each year.
 #German + non-German = 1 in each year
-mnew <- mnew %>%
+mnew <- Mobilitaet_thin %>%
   group_by(Jahr, Raumbezug) %>% 
-  mutate(rb5 = Basiswert.5 / Basiswert.5[Ausprägung == "insgesamt"])
+  mutate(rb5 = mittlere_Hauptwohnsitzbevölkerung / mittlere_Hauptwohnsitzbevölkerung[Ausprägung == "insgesamt"]) %>%
+  ungroup()
 
-p3b<-mnew%>%
-  filter(Ausprägung != "insgesamt" , sn == 26)%>%
+p3b <- mnew %>%
+  filter(Ausprägung != "insgesamt" , Raumbezug == "Stadt München")%>%
   ggplot(aes(x = Jahr, y = rb5, color = Ausprägung)) +
   geom_point(size=0.6)+ geom_line() +
   labs(y= "Anteil an der Bevölkerung",
@@ -31,4 +33,4 @@ p3b<-mnew%>%
 p3b
 
 #save plot
-ggsave("Results/p_Anteil_Bevölkerung_München.jpg", plot = p3b,width = 10, height = 6)
+ggsave("Results/p_Anteil_Bevölkerung_München.jpg", plot = p3b, width = 10, height = 6)
